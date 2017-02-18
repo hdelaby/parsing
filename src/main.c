@@ -5,90 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/20 14:20:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/28 16:18:13 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/02/18 11:37:32 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <signal.h>
+#include "parsing.h"
 
-static int	get_default_env(t_list **env)
+void	end_token(t_token *tok, t_list **tokens_lst)
 {
-	char	*tmp;
-	char	*buf;
-	int		ret;
-
-	ret = 0;
-	buf = NULL;
-	buf = getcwd(buf, 0);
-	tmp = ft_strjoin("/Users/", getlogin());
-	if (ft_setenv("LOGNAME", getlogin(), 0, env)
-		|| ft_setenv("HOME", tmp, 0, env)
-		|| ft_setenv("PATH", DEFAULT_PATH, 0, env)
-		|| ft_setenv("TERM", "dumb", 0, env)
-		|| ft_setenv("PWD", buf, 0, env))
-		ret = 1;
-	free(tmp);
-	free(buf);
-	return (ret);
+	ft_lstaddback(tokens_lst, ft_lstnew(tok->str, ft_strlen(tok->str) + 1));
+	ft_bzero(tok->str, MAX_TOKEN_LEN);
+	tok->str_i = 0;
 }
 
-static int	indiv_cmd(t_list **env, char **cmd_tokens)
+void	parse_cmd(char *cmd)
 {
-	int		i;
-	char	**args;
+	t_list	*tokens_lst;
+	t_token tok;
 
-	if (!cmd_tokens || !env)
-		exit(get_exit_status(-1));
-	i = 0;
-	while (cmd_tokens[i])
+	ft_bzero(&tok, sizeof(t_token));
+	while (cmd[tok.cmd_i])
 	{
-		args = cmd_parsing(cmd_tokens + i++);
-		if (args != NULL)
-		{
-			exec_home(args[0], args, env);
-			ft_tabdel(args);
-		}
+		if (cmd[tok.cmd_i] > 32)
+			tok.str[tok.str_i++] = cmd[tok.cmd_i];
 		else
-			return (-1);
+			end_token(&tok, &tokens_lst);
+		tok.cmd_i++;
 	}
-	return (0);
+	tok.str[tok.str_i] = 0;
+	end_token(&tok, &tokens_lst);
+	ft_putlst(tokens_lst);
 }
 
-static int	shell_loop(t_list **env)
+int		main(void)
 {
-	char	*str;
-	char	**args;
-	char	**test;
-	int		i;
-
-	i = 0;
-	signal(SIGINT, &parent_sigint_handler);
-	while (42)
-	{
-		str = NULL;
-		args = NULL;
-		put_prompt(env);
-		get_next_line(0, &str);
-		test = input_token(str);
-		indiv_cmd(env, test);
-		free(test);
-		signal(SIGINT, &parent_sigint_handler);
-	}
-}
-
-int			main(int ac, char **av, char **env)
-{
-	t_list *lst;
-
-	(void)ac;
-	(void)av;
-	lst = ft_tab_to_lst(env);
-	get_default_env(&lst);
-	if (!lst)
-		return (1);
-	get_global_env(&lst);
-	shell_loop(&lst);
-	return (0);
+	char *cmd = "Hello this is a command";
+	
+	parse_cmd(cmd);
 }

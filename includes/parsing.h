@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bi_cd_extra.c                                      :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/26 16:27:43 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/26 16:29:44 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/02/18 11:46:59 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-int	cd_get_option(char *arg, int *has_opt)
+# include "libft.h"
+
+# define MAX_TOKEN_LEN 256
+
+typedef struct	s_token
 {
-	if (!ft_strcmp(arg, "-"))
-		return (1);
-	arg += 1;
-	while (*arg)
-	{
-		if (*arg == 'P')
-			*has_opt = 1;
-		else if (*arg == 'L')
-			*has_opt = 0;
-		else
-			return (1);
-		arg += 1;
-	}
-	return (0);
-}
+	char	str[MAX_TOKEN_LEN];
+	int		cmd_i;
+	int		str_i;
+}				t_token;
+
+/*
+** SPECIAL OPERATORS
+** ';' '|' '>' '<' '<<' '>>' '&'
+*/
+
+#endif
