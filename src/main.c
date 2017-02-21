@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/20 17:04:18 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/21 09:23:05 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ void	parse_cmd(char *cmd)
 
 int		main(void)
 {
-	char *cmd = "ls -l|cat <|mdr > redir";
+	char *cmd = "ls -l|cat 2> mdr > redir";
 	parse_cmd(cmd);
 }
