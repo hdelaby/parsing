@@ -6,3 +6,4 @@ obj/
 libft/libft.a
 libft/*.o
 sh_history
+parsing
