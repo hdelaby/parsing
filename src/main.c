@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/21 09:23:05 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/22 11:54:53 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,36 @@
 
 #include "ft_printf.h"
 
-void	end_token(t_token *tok, t_list **tokens_lst)
+void	end_token(t_token *tok, t_list **lst)
 {
 	t_list *new_node;
 
-	tok->str[tok->str_i] = '\0';
+	tok->str[tok->index] = '\0';
 	if (*tok->str)
 	{
 		new_node = ft_lstnew(tok->str, ft_strlen(tok->str) + 1);
-		if (tok->is_pipe)
-			new_node->content_size = 1;
-		else if (tok->is_iredir)
-			new_node->content_size = 2;
-		else if (tok->is_oredir)
-			new_node->content_size = 3;
-		else
-			new_node->content_size = 4;
-		ft_lstaddback(tokens_lst, new_node);
+		new_node->content_size = tok->type;
+		ft_lstaddback(lst, new_node);
 	}
 	ft_bzero(tok->str, MAX_TOKEN_LEN);
-	tok->is_pipe = 0;
-	tok->is_iredir = 0;
-	tok->is_oredir = 0;
-	tok->is_quoted = 0;
-	tok->str_i = 0;
+	tok->index = 0;
+	tok->type = 0;
 }
 
 void	match_table(char c, t_token *tok, t_list **tokens_lst)
 {
 	int							i;
-	static struct s_parsingtab	ptab[5] = {
+	static struct s_parsingtab	ptab[6] = {
 		{' ', &handle_space},
-		/* {'\'', &handle_squote} */
+		{'\'', &handle_quote},
 		{'\"', &handle_dquote},
-		/* {'\"', &handle_squote} */
 		{'|', &handle_pipe},
 		{'<', &handle_iredir},
 		{'>', &handle_oredir}
 	};
 
 	i = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		if (c == ptab[i].key)
 		{
@@ -66,27 +55,30 @@ void	match_table(char c, t_token *tok, t_list **tokens_lst)
 	handle_other(tok, tokens_lst, c);
 }
 
-void	parse_cmd(char *cmd)
+void	lex_cmd(char *cmd)
 {
-	t_list	*tokens_lst;
-	t_token tok;
+	t_token	tok;
+	t_list	*lst;
 
-	ft_bzero(&tok, sizeof(t_token));
-	while (cmd[tok.cmd_i])
+	ft_bzero(&tok, sizeof(tok));
+	tok.cmd = cmd;
+	while (*tok.cmd)
+		match_table(*tok.cmd++, &tok, &lst);
+	end_token(&tok, &lst);
+	while (lst)
 	{
-		match_table(cmd[tok.cmd_i], &tok, &tokens_lst);
-		tok.cmd_i++;
-	}
-	end_token(&tok, &tokens_lst);
-	while (tokens_lst)
-	{
-		ft_printf("%s %d\n", tokens_lst->content, tokens_lst->content_size);
-		tokens_lst = tokens_lst->next;
+		ft_printf("%s %d\n", lst->content, lst->content_size);
+		lst = lst->next;
 	}
 }
 
 int		main(void)
 {
-	char *cmd = "ls -l|cat 2> mdr > redir";
-	parse_cmd(cmd);
+	char *cmd = ft_strdup("ls >&- hello");
+	/* char *lol = ft_strdup("hello\"m<><><|dr\"lol"); */
+	/* char *cmd = ft_strdup("ls >&- hello"); */
+	/* char *cmd = ft_strdup("ls >&- hello"); */
+	/* char *cmd = ft_strdup("ls >&- hello"); */
+	lex_cmd(cmd);
+	/* parse_cmd(lol); */
 }

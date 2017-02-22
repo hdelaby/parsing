@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/02/20 11:20:49 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/02/22 11:55:11 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,8 @@ INC= -I./includes -I./libft/includes
 
 SRC_PATH = src
 SRC_NAME = main.c\
-		   handlers.c\
-		   test_pipe.c\
-		   test_dup.c
+		   handlers_operands.c\
+		   handlers_other.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

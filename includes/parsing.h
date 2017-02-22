@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/20 17:02:03 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/22 10:28:57 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@
 
 # define MAX_TOKEN_LEN 256
 
+# define WORD	1
+# define DIGIT	2
+# define PIPE	3
+# define OREDIR	4
+# define IREDIR	5
+
 typedef struct	s_token
 {
 	char	str[MAX_TOKEN_LEN];
-	int		cmd_i;
-	int		str_i;
-	int		is_pipe;
-	int		is_quoted;
-	int		is_oredir;
-	int		is_iredir;
+	char	*cmd;
+	int		index;
+	int		type;
 }				t_token;
 
 struct			s_parsingtab
@@ -34,12 +37,12 @@ struct			s_parsingtab
 	void	(*p)(t_token *tok, t_list **tokens_lst);
 };
 
-void	end_token(t_token *tok, t_list **tokens_lst);
+void	end_token(t_token *tok, t_list **lst);
 
 void	handle_pipe(t_token *tok, t_list **tokens_lst);
 void	handle_space(t_token *tok, t_list **tokens_lst);
 void	handle_dquote(t_token *tok, t_list **tokens_lst);
-void	handle_squote(t_token *tok, t_list **tokens_lst);
+void	handle_quote(t_token *tok, t_list **lst);
 void	handle_backsh(t_token *tok, t_list **tokens_lst);
 void	handle_iredir(t_token *tok, t_list **tokens_lst);
 void	handle_oredir(t_token *tok, t_list **tokens_lst);
