@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/22 10:28:57 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/23 14:41:24 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define PIPE	3
 # define OREDIR	4
 # define IREDIR	5
+# define CMD	6
 
 typedef struct	s_token
 {
@@ -37,7 +38,20 @@ struct			s_parsingtab
 	void	(*p)(t_token *tok, t_list **tokens_lst);
 };
 
+typedef struct	s_cmdlist
+{
+	int					type;
+	t_list				*args;
+	t_list				*redir;
+	struct s_cmdlist	*next;
+}				t_cmdlist;
+
+/*
+** lexer.c
+*/
+
 void	end_token(t_token *tok, t_list **lst);
+t_list	*lex_cmd(char *cmd);
 
 void	handle_pipe(t_token *tok, t_list **tokens_lst);
 void	handle_space(t_token *tok, t_list **tokens_lst);

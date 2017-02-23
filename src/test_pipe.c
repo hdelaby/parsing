@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 17:30:28 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/18 09:00:55 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/23 08:42:23 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@
 
 char *cmd[] = { "/bin/cat", 0 };
 char *cmd1[] = { "/bin/echo", "MDR", 0};
+char *cmd2[] = { "/bin/cat", 0 };
 
 void	runsource(int pfd[]);
 void	rundest(int pfd[]);
 
-/* int		main(void) */
-/* { */
-/* 	int status; */
-/* 	int fd[2]; */
+int		main(void)
+{
+	int status;
+	int fd[2];
 
-/* 	pipe(fd); */
-/* 	runsource(fd); */
-/* 	rundest(fd); */
-/* 	close(fd[0]); */
-/* 	close(fd[1]); */
+	pipe(fd);
+	runsource(fd);
+	rundest(fd);
+	close(fd[0]);
+	close(fd[1]);
 
-/* 	wait(&status); */
-/* 	puts("LOL"); */
-/* 	exit(0); */
-/* } */
+	wait(&status);
+	exit(0);
+}
 
 void	runsource(int pfd[])
 {

@@ -6,79 +6,111 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/22 11:54:53 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/23 15:12:10 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include <stdio.h>
 
-#include "ft_printf.h"
-
-void	end_token(t_token *tok, t_list **lst)
+t_list	*ft_lstpopnode(t_list **lst)
 {
-	t_list *new_node;
+	t_list	*tmp;
 
-	tok->str[tok->index] = '\0';
-	if (*tok->str)
+	tmp = NULL;
+	if (*lst)
 	{
-		new_node = ft_lstnew(tok->str, ft_strlen(tok->str) + 1);
-		new_node->content_size = tok->type;
-		ft_lstaddback(lst, new_node);
+		tmp = *lst;
+		*lst = (*lst)->next;
+		tmp->next = NULL;
 	}
-	ft_bzero(tok->str, MAX_TOKEN_LEN);
-	tok->index = 0;
-	tok->type = 0;
+	return (tmp);
 }
 
-void	match_table(char c, t_token *tok, t_list **tokens_lst)
+void	feed_cmdlist(t_cmdlist **cmd, int type)
 {
-	int							i;
-	static struct s_parsingtab	ptab[6] = {
-		{' ', &handle_space},
-		{'\'', &handle_quote},
-		{'\"', &handle_dquote},
-		{'|', &handle_pipe},
-		{'<', &handle_iredir},
-		{'>', &handle_oredir}
-	};
+	t_cmdlist *new_cmd;
 
-	i = 0;
-	while (i < 6)
+	new_cmd = malloc(sizeof(t_cmdlist));
+	ft_bzero(new_cmd, sizeof(t_cmdlist));
+	if (*cmd)
 	{
-		if (c == ptab[i].key)
-		{
-			ptab[i].p(tok, tokens_lst);
-			return ;
-		}
-		i++;
+		(*cmd)->type = type;
+		(*cmd)->next = new_cmd;
+		*cmd = (*cmd)->next;
 	}
-	handle_other(tok, tokens_lst, c);
 }
 
-void	lex_cmd(char *cmd)
+void	parser(t_list *lst)
 {
-	t_token	tok;
-	t_list	*lst;
+	t_cmdlist	*cmd;
+	t_cmdlist	*tmp;
+	t_list		*node;
 
-	ft_bzero(&tok, sizeof(tok));
-	tok.cmd = cmd;
-	while (*tok.cmd)
-		match_table(*tok.cmd++, &tok, &lst);
-	end_token(&tok, &lst);
+	cmd = malloc(sizeof(t_cmdlist));
+	ft_bzero(cmd, sizeof(t_cmdlist));
+	tmp = cmd;
 	while (lst)
 	{
-		ft_printf("%s %d\n", lst->content, lst->content_size);
+		node = ft_lstpopnode(&lst);
+		if (node->content_size == WORD)
+			ft_lstaddback(&cmd->args, node);
+		else if (node->content_size == OREDIR || node->content_size == IREDIR)
+		{
+			ft_lstaddback(&cmd->redir, node);
+			node = ft_lstpopnode(&lst);
+			ft_lstaddback(&cmd->redir, node);
+		}
+		else
+		{
+			feed_cmdlist(&cmd, CMD);
+			ft_lstaddback(&cmd->args, node);
+			feed_cmdlist(&cmd, node->content_size);
+		}
+	}
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+		{
+			ft_putendl(">> PIPE");
+			ft_putchar('\n');
+			tmp = tmp->next;
+			continue;
+		}
+		ft_putendl("ARGS");
+		ft_putlst(tmp->args);
+		ft_putchar('\n');
+		ft_putendl("REDIR");
+		ft_putlst(tmp->redir);
+		ft_putchar('\n');
+		tmp = tmp->next;
+	}
+}
+
+int		check_tokens(t_list *lst)
+{
+	while (lst)
+	{
+		if (lst->content_size == PIPE && lst->next == NULL)
+			return (1);
+		else if ((lst->content_size == OREDIR || lst->content_size == IREDIR)
+				&& (!lst->next || lst->next->content_size != WORD))
+			return (1);
 		lst = lst->next;
 	}
+	return (0);
 }
 
 int		main(void)
 {
-	char *cmd = ft_strdup("ls >&- hello");
-	/* char *lol = ft_strdup("hello\"m<><><|dr\"lol"); */
-	/* char *cmd = ft_strdup("ls >&- hello"); */
-	/* char *cmd = ft_strdup("ls >&- hello"); */
-	/* char *cmd = ft_strdup("ls >&- hello"); */
-	lex_cmd(cmd);
-	/* parse_cmd(lol); */
+	t_list	*lst;
+	char	*cmd;
+
+	strlen("LOL");
+	cmd = ft_strdup("ls >&2- <<- | ls -l src | lol | >> hello");
+	lst = lex_cmd(cmd);
+	free(cmd);
+	if (check_tokens(lst))
+		exit(1);
+	parser(lst);
 }
