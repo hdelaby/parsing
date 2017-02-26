@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/23 15:12:10 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/26 13:58:06 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		main(void)
 	char	*cmd;
 
 	strlen("LOL");
-	cmd = ft_strdup("ls >&2- <<- | ls -l src | lol | >> hello");
+	cmd = ft_strdup("ls >&2- <<- | ls -l src | lol | >> coucou");
 	lst = lex_cmd(cmd);
 	free(cmd);
 	if (check_tokens(lst))

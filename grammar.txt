@@ -1,0 +1,11 @@
+cmd:	<job> SEMI_COLON
+	|	<job> SEMI_COLON <cmd>
+	|	<job> EOL
+	|	<job> EOL <cmd>
+	|	<job>
+
+job:	<list> PIPE <job>
+	|	<list>
+
+list:	LIST
+	|	empty
