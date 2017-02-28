@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/02/23 09:27:12 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/02/28 09:15:20 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,8 @@ SRC_PATH = src
 SRC_NAME = main.c\
 		   handlers_operands.c\
 		   handlers_other.c\
-		   lexer.c
-
-#test_pipe.c
+		   lexer.c\
+		   parser.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

@@ -1,9 +1,17 @@
-cmd:	<job> ((SEMI_COLON | EOL) cmd)*
+command_line:	<job> SEMICO <command_line>
+			|	<job> SEMICO
+			|	<job> EOL <command_line>
+			|	<job> EOL
+			|	<job>
 
-job:	<simple_cmd> (PIPE <job>)*
+job:			<cmd> PIPE <job>
+			|	<cmd>
 
-simple_cmd:	(<redir> | <args> | EOL) <simple_cmd>* | empty
+cmd:			<redir> <cmd>
+			|	<token_list> <cmd>
+			|	<token_list>
 
-redir: ('<' | '>' | '<<' | '>>' | '<&' | '>&' | '<>') WORD 
+redir:			IOREDIR WORD
 
-args: WORD
+token_list:		WORD <token_list>
+			|	empty;

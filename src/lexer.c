@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 09:24:31 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/27 14:18:27 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/28 09:33:26 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ void		end_token(t_token *tok, t_list **lst)
 	ft_bzero(tok->str, MAX_TOKEN_LEN);
 	tok->index = 0;
 	tok->type = 0;
+}
+
+void	final_token(t_token *tok, t_list **lst)
+{
+	tok->type = END;
+	tok->str[tok->index++] = 'E';
+	end_token(tok, lst);
 }
 
 static void	match_table(char c, t_token *tok, t_list **tokens_lst)
@@ -67,5 +74,6 @@ t_list		*lex_cmd(char *cmd)
 	while (*tok.cmd)
 		match_table(*tok.cmd++, &tok, &lst);
 	end_token(&tok, &lst);
+	final_token(&tok, &lst);
 	return (lst);
 }

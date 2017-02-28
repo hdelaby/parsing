@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/27 14:12:26 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/28 09:16:27 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct	s_cmdlist
 	t_list				*redir;
 	struct s_cmdlist	*next;
 }				t_cmdlist;
+
+/*
+** parser.c
+*/
+
+int		parser(t_list *tok);
 
 /*
 ** lexer.c
