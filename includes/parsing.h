@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/23 14:41:24 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/27 14:12:26 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 # define PIPE	3
 # define OREDIR	4
 # define IREDIR	5
-# define CMD	6
+# define SEMICO	6
+# define EOL	7
+# define END	8
+# define CMD	9
 
 typedef struct	s_token
 {
@@ -54,6 +57,8 @@ void	end_token(t_token *tok, t_list **lst);
 t_list	*lex_cmd(char *cmd);
 
 void	handle_pipe(t_token *tok, t_list **tokens_lst);
+void	handle_semicolon(t_token *tok, t_list **tokens_lst);
+void	handle_eol(t_token *tok, t_list **tokens_lst);
 void	handle_space(t_token *tok, t_list **tokens_lst);
 void	handle_dquote(t_token *tok, t_list **tokens_lst);
 void	handle_quote(t_token *tok, t_list **lst);

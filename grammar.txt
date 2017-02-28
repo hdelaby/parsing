@@ -1,11 +1,9 @@
-cmd:	<job> SEMI_COLON
-	|	<job> SEMI_COLON <cmd>
-	|	<job> EOL
-	|	<job> EOL <cmd>
-	|	<job>
+cmd:	<job> ((SEMI_COLON | EOL) cmd)*
 
-job:	<list> PIPE <job>
-	|	<list>
+job:	<simple_cmd> (PIPE <job>)*
 
-list:	LIST
-	|	empty
+simple_cmd:	(<redir> | <args> | EOL) <simple_cmd>* | empty
+
+redir: ('<' | '>' | '<<' | '>>' | '<&' | '>&' | '<>') WORD 
+
+args: WORD

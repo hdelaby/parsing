@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 09:24:31 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/23 09:27:39 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/27 14:18:27 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void		end_token(t_token *tok, t_list **lst)
 {
 	t_list *new_node;
 
+	if (tok->type == DIGIT)
+		tok->type = WORD;
 	tok->str[tok->index] = '\0';
 	if (*tok->str)
 	{
@@ -31,17 +33,19 @@ void		end_token(t_token *tok, t_list **lst)
 static void	match_table(char c, t_token *tok, t_list **tokens_lst)
 {
 	int							i;
-	static struct s_parsingtab	ptab[6] = {
+	static struct s_parsingtab	ptab[8] = {
 		{' ', &handle_space},
 		{'\'', &handle_quote},
 		{'\"', &handle_dquote},
 		{'|', &handle_pipe},
 		{'<', &handle_iredir},
+		{'\n', &handle_eol},
+		{';', &handle_semicolon},
 		{'>', &handle_oredir}
 	};
 
 	i = 0;
-	while (i < 6)
+	while (i < 8)
 	{
 		if (c == ptab[i].key)
 		{

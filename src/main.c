@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/26 13:58:06 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/27 15:39:22 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,6 @@ void	parser(t_list *lst)
 			feed_cmdlist(&cmd, node->content_size);
 		}
 	}
-	while (tmp)
-	{
-		if (tmp->type == PIPE)
-		{
-			ft_putendl(">> PIPE");
-			ft_putchar('\n');
-			tmp = tmp->next;
-			continue;
-		}
-		ft_putendl("ARGS");
-		ft_putlst(tmp->args);
-		ft_putchar('\n');
-		ft_putendl("REDIR");
-		ft_putlst(tmp->redir);
-		ft_putchar('\n');
-		tmp = tmp->next;
-	}
 }
 
 int		check_tokens(t_list *lst)
@@ -107,10 +90,15 @@ int		main(void)
 	char	*cmd;
 
 	strlen("LOL");
-	cmd = ft_strdup("ls >&2- <<- | ls -l src | lol | >> coucou");
+	cmd = ft_strdup("ls | >> coucou\n");
 	lst = lex_cmd(cmd);
+	while (lst)
+	{
+		printf("value:%s type:%zu\n", lst->content, lst->content_size);
+		lst = lst->next;
+	}
 	free(cmd);
-	if (check_tokens(lst))
-		exit(1);
-	parser(lst);
+	/* if (check_tokens(lst)) */
+	/* 	exit(1); */
+	/* parser(lst); */
 }

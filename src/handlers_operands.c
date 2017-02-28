@@ -6,11 +6,13 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 11:13:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/22 11:44:14 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/27 15:02:52 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+#include <string.h>
 
 /*
 ** ACCEPTED SYNTAX
@@ -22,6 +24,27 @@
 ** [n]>& word
 ** [n]<> word
 */
+
+void	handle_eol(t_token *tok, t_list **lst)
+{
+	char	*eol = "newline";
+	end_token(tok, lst);
+	tok->type = EOL;
+	while (eol[tok->index])
+	{
+		tok->str[tok->index] = eol[tok->index];
+		tok->index++;	
+	}
+	end_token(tok, lst);
+}
+
+void	handle_semicolon(t_token *tok, t_list **lst)
+{
+	end_token(tok, lst);
+	tok->type = SEMICO;
+	tok->str[tok->index++] = ';';
+	end_token(tok, lst);
+}
 
 void	handle_oredir(t_token *tok, t_list **lst)
 {
