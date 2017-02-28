@@ -6,11 +6,14 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:58:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/28 13:39:32 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/02/28 17:29:48 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "ast.h"
+
+t_ast	*list(t_list **tok);
 
 void	parsing_error(char *str)
 {
@@ -18,79 +21,82 @@ void	parsing_error(char *str)
 	ft_putendl_fd(str, 2);
 }
 
-void	eat(t_list **tok, int type)
+int		eat(t_list **tok, int type)
 {
 	if ((*tok)->content_size == (size_t)type)
 		*tok = (*tok)->next;
 	else
-		parsing_error((char *)(*tok)->content);
+		return (1);
+	return (0);
 }
 
-void	linebreak(t_list **tok)
+t_ast	*job(t_list	**tok)
 {
-	while ((*tok)->content_size == EOL)
-		eat(tok, EOL);
-}
+	t_ast	*new_node;
+	t_ast	*arg_list;
 
-void	args(t_list **tok)
-{
-	if ((*tok)->content_size == WORD)
-		eat(tok, WORD);
-}
-
-void	redir(t_list **tok)
-{
-	eat(tok, IREDIR);
-	eat(tok, WORD);
-}
-
-void	simple_cmd(t_list **tok)
-{
-	if ((*tok)->content_size == IREDIR)
-		redir(tok);
-	else
-		args(tok);
-	while ((*tok)->content_size == IREDIR || (*tok)->content_size == WORD)
-		simple_cmd(tok);
-}
-
-void	job(t_list **tok)
-{
-	simple_cmd(tok);
-	while ((*tok)->content_size == PIPE)
+	arg_list = list(tok);
+	if (arg_list && (*tok)->content_size == PIPE)
 	{
-		eat(tok, PIPE);
-		linebreak(tok);
-		job(tok);
+		if (eat(tok, PIPE))
+			return (NULL);
+		if (!(new_node = ast_node(PIPE, arg_list, NULL)))
+			return (NULL);
+		new_node->right = job(tok);
+		return (new_node);
 	}
+	return (arg_list);
 }
 
-void	separator(t_list **tok)
+t_ast	*list(t_list **tok)
 {
-	if ((*tok)->content_size == SEMICO)
-		eat(tok, SEMICO);
-	else
-		linebreak(tok);
-}
+	t_ast	*new_node;
 
-void	cmd(t_list **tok)
-{
-	if ((*tok)->content_size == SEMICO || (*tok)->content_size == EOL)
+	if (!(new_node = ast_leaf(ARG_NODE)))
+		return (NULL);
+	while ((*tok)->content_size == WORD || (*tok)->content_size == OREDIR)
 	{
-		separator(tok);
+		if ((*tok)->content_size == WORD)
+		{
+			ft_lstaddback(&new_node->args, ft_lstnew((*tok)->content,
+						ft_strlen((*tok)->content) + 1));
+			if (eat(tok, WORD))
+				return (NULL);
+		}
+		else if ((*tok)->content_size == OREDIR)
+		{
+			ft_lstaddback(&new_node->args, ft_lstnew((*tok)->content,
+						ft_strlen((*tok)->content) + 1));
+			if (eat(tok, OREDIR))
+				return (NULL);
+			ft_lstaddback(&new_node->args, ft_lstnew((*tok)->content,
+						ft_strlen((*tok)->content) + 1));
+			if (eat(tok, WORD))
+				return (NULL);
+		}
+	}
+	return (new_node);
+}
+
+void	execute(t_ast *tree)
+{
+	if (!tree)
 		return ;
-	}
-	else
-	{
-		job(tok);
-		separator(tok);
-	}
+	ft_putnbr(tree->type);
+	ft_putchar('\n');
+	/* ft_putlst(tree->args); */
+	/* ft_putlst(tree->redir); */
+	execute(tree->left);
+	execute(tree->right);
 }
 
 int		parser(t_list *tok)
 {
-	job(&tok);
+	t_ast	*tree;
+	tree = job(&tok);
 	if (tok && tok->content_size != END)
 		parsing_error(tok->content);
+	else
+		execute(tree);
 	return (1);
 }
