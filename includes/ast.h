@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 13:37:06 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/28 17:17:28 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/01 09:12:50 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define ARG_NODE	1
 # define PIPE_NODE	2
+# define SEQ_NODE	3
 
 typedef struct	s_ast
 {

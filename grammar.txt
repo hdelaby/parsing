@@ -1,17 +1,10 @@
 command_line:	<job> SEMICO <command_line>
 			|	<job> SEMICO
-			|	<job> EOL <command_line>
-			|	<job> EOL
+			|	<job> <linebreak> <command_line>
+			|	<job> <linebreak>
 			|	<job>
 
-job:			<cmd> PIPE <job>
-			|	<cmd>
+job:			<list> PIPE <job>
+			|	<list>
 
-cmd:			<redir> <cmd>
-			|	<token_list> <cmd>
-			|	<token_list>
-
-redir:			IOREDIR WORD
-
-token_list:		WORD <token_list>
-			|	empty;
+list:			REDIR + WORD

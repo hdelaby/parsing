@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:58:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/28 17:29:48 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/01 09:21:32 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ast.h"
 
 t_ast	*list(t_list **tok);
+t_ast	*job(t_list **tok);
 
 void	parsing_error(char *str)
 {
@@ -30,17 +31,42 @@ int		eat(t_list **tok, int type)
 	return (0);
 }
 
+t_ast	*command_line(t_list **tok)
+{
+	t_ast	*new_node;
+	t_ast	*job_node;
+
+	if ((job_node = job(tok)) && (*tok)->content_size == SEMICO)
+	{
+		if (eat(tok, SEMICO))
+			return (NULL);
+		if (!(new_node = ast_node(SEQ_NODE, job_node, NULL)))
+			return (NULL);
+		new_node->right = command_line(tok);
+		return (new_node);
+	}
+	else if (job_node && (*tok)->content_size == EOL)
+	{
+		if (eat(tok, EOL))
+			return (NULL);
+		if (!(new_node = ast_node(SEQ_NODE, job_node, NULL)))
+			return (NULL);
+		new_node->right = command_line(tok);
+		return (new_node);
+	}
+	return (job_node);
+}
+
 t_ast	*job(t_list	**tok)
 {
 	t_ast	*new_node;
 	t_ast	*arg_list;
 
-	arg_list = list(tok);
-	if (arg_list && (*tok)->content_size == PIPE)
+	if ((arg_list = list(tok)) && (*tok)->content_size == PIPE)
 	{
 		if (eat(tok, PIPE))
 			return (NULL);
-		if (!(new_node = ast_node(PIPE, arg_list, NULL)))
+		if (!(new_node = ast_node(PIPE_NODE, arg_list, NULL)))
 			return (NULL);
 		new_node->right = job(tok);
 		return (new_node);
@@ -82,10 +108,16 @@ void	execute(t_ast *tree)
 {
 	if (!tree)
 		return ;
-	ft_putnbr(tree->type);
-	ft_putchar('\n');
-	/* ft_putlst(tree->args); */
-	/* ft_putlst(tree->redir); */
+	if (tree->type == ARG_NODE)
+	{
+		ft_putlst(tree->args);
+		ft_putlst(tree->redir);
+	}
+	else
+	{
+		ft_putnbr(tree->type);
+		ft_putchar('\n');
+	}
 	execute(tree->left);
 	execute(tree->right);
 }
@@ -93,7 +125,7 @@ void	execute(t_ast *tree)
 int		parser(t_list *tok)
 {
 	t_ast	*tree;
-	tree = job(&tok);
+	tree = command_line(&tok);
 	if (tok && tok->content_size != END)
 		parsing_error(tok->content);
 	else
