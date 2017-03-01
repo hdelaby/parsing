@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/01 09:25:07 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/01 13:38:45 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		main(void)
 	t_list	*lst;
 	char	*cmd;
 
-	cmd = ft_strdup("ls -l | ok;ls -l;");
+	cmd = ft_strdup("ls -l |\n");
 	lst = lex_cmd(cmd);
 	free(cmd);
 	parser(lst);
