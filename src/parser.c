@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:58:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/01 13:38:28 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/02 08:59:29 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ void	parsing_error(char *str)
 
 int		eat(t_list **tok, int type, int *status)
 {
+	ft_putnbr((*tok)->content_size);
+	ft_putnbr(type);
+	ft_putchar('\n');
 	if ((*tok)->content_size == (size_t)type)
 		*tok = (*tok)->next;
 	else
 	{
+	ft_putchar('\n');
 		*status = 1;
 		return (1);
 	}
@@ -89,7 +93,10 @@ t_ast	*job(t_list	**tok, int *status)
 		linebreak(tok, status);
 		new_node->right = job(tok, status);
 		if (!new_node->right)
+		{
 			*status = 1;
+			return (NULL);
+		}
 		return (new_node);
 	}
 	return (arg_list);

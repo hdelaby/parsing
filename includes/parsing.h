@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/28 09:16:27 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/02 09:06:55 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define SEMICO	6
 # define EOL	7
 # define END	8
-# define CMD	9
 
 typedef struct	s_token
 {
