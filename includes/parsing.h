@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/02 09:06:55 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/02 09:32:07 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "libft.h"
+# include "ast.h"
 
 # define MAX_TOKEN_LEN 256
 
@@ -52,7 +53,7 @@ typedef struct	s_cmdlist
 ** parser.c
 */
 
-int		parser(t_list *tok);
+t_ast	*parser(t_list *tok);
 
 /*
 ** lexer.c

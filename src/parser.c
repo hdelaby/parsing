@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:58:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/02 08:59:29 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/02 12:02:42 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,10 @@ void	parsing_error(char *str)
 
 int		eat(t_list **tok, int type, int *status)
 {
-	ft_putnbr((*tok)->content_size);
-	ft_putnbr(type);
-	ft_putchar('\n');
 	if ((*tok)->content_size == (size_t)type)
 		*tok = (*tok)->next;
 	else
 	{
-	ft_putchar('\n');
 		*status = 1;
 		return (1);
 	}
@@ -119,11 +115,11 @@ t_ast	*list(t_list **tok, int *status)
 		}
 		else if ((*tok)->content_size == OREDIR)
 		{
-			ft_lstaddback(&new_node->args, ft_lstnew((*tok)->content,
+			ft_lstaddback(&new_node->redir, ft_lstnew((*tok)->content,
 						ft_strlen((*tok)->content) + 1));
 			if (eat(tok, OREDIR, status))
 				return (NULL);
-			ft_lstaddback(&new_node->args, ft_lstnew((*tok)->content,
+			ft_lstaddback(&new_node->redir, ft_lstnew((*tok)->content,
 						ft_strlen((*tok)->content) + 1));
 			if (eat(tok, WORD, status))
 				return (NULL);
@@ -132,34 +128,17 @@ t_ast	*list(t_list **tok, int *status)
 	return (new_node);
 }
 
-void	execute(t_ast *tree)
-{
-	if (!tree)
-		return ;
-	if (tree->type == ARG_NODE)
-	{
-		ft_putlst(tree->args);
-		ft_putlst(tree->redir);
-	}
-	else
-	{
-		ft_putnbr(tree->type);
-		ft_putchar('\n');
-	}
-	execute(tree->left);
-	execute(tree->right);
-}
-
-int		parser(t_list *tok)
+t_ast	*parser(t_list *tok)
 {
 	t_ast	*tree;
 	int		status;
 
 	status = 0;
 	tree = command_line(&tok, &status);
-	if (status)
+	if (status || tok->content_size != END)
+	{
 		parsing_error(tok->content);
-	else
-		execute(tree);
-	return (1);
+		return (NULL);
+	}
+	return (tree);
 }
