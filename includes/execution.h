@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelstr.c                                     :+:      :+:    :+:   */
+/*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/10 10:27:34 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/03 11:25:10 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/03/03 10:49:47 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/03/03 10:51:20 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EXECUTION_H
+# define EXECUTION_H
 
-void	ft_lstdelstr(void *content, size_t content_size)
-{
-	(void)content_size;
-	free(content);
-	content = NULL;
-}
+# include "parsing.h"
+# include "ast.h"
+# include <fcntl.h>
+
+# define READ_END	0
+# define WRITE_END	1
+
+void	execute(t_ast *tree);
+
+#endif
