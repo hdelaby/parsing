@@ -6,13 +6,11 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 11:13:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/27 15:02:52 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 11:48:32 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-#include <string.h>
 
 /*
 ** ACCEPTED SYNTAX

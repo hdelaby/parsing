@@ -6,11 +6,12 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/03 11:54:18 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 14:32:03 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "exec_redir.h"
 
 /*
 ** This set of functions need to evolve to cover all cases of tree
@@ -20,15 +21,8 @@
 
 void	apply_redir(t_list *lst)
 {
-	int		fildes;
-
-	while (lst)
-	{
-		lst = lst->next;
-		fildes = open(lst->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		dup2(fildes, STDOUT_FILENO);
-		lst = lst->next;
-	}
+	if (lst)
+		get_redir(lst);
 }
 
 void	execute_cmd(t_ast *tree)

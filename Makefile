@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/03 10:52:01 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/06 11:11:31 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_NAME = main.c\
 		   lexer.c\
 		   parser.c\
 		   ast.c\
-		   execution.c
+		   execution.c\
+		   exec_redir.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

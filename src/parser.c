@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:58:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/02 12:02:42 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 13:48:05 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,24 @@ t_ast	*job(t_list	**tok, int *status)
 	return (arg_list);
 }
 
+int		feed_redir(t_list **tok, int *status, t_ast **node, size_t type)
+{
+	t_list	*lnode;
+
+	lnode = ft_lstnew((*tok)->content, ft_strlen((*tok)->content) + 1);
+	if (!lnode)
+		return (1);
+	lnode->content_size = type;
+	ft_lstaddback(&(*node)->redir, lnode);
+	if (eat(tok, type, status))
+		return (1);
+	ft_lstaddback(&(*node)->redir, ft_lstnew((*tok)->content,
+				ft_strlen((*tok)->content) + 1));
+	if (eat(tok, WORD, status))
+		return (1);
+	return (0);
+}
+
 t_ast	*list(t_list **tok, int *status)
 {
 	t_ast	*new_node;
@@ -115,13 +133,12 @@ t_ast	*list(t_list **tok, int *status)
 		}
 		else if ((*tok)->content_size == OREDIR)
 		{
-			ft_lstaddback(&new_node->redir, ft_lstnew((*tok)->content,
-						ft_strlen((*tok)->content) + 1));
-			if (eat(tok, OREDIR, status))
+			if (feed_redir(tok, status, &new_node, OREDIR))
 				return (NULL);
-			ft_lstaddback(&new_node->redir, ft_lstnew((*tok)->content,
-						ft_strlen((*tok)->content) + 1));
-			if (eat(tok, WORD, status))
+		}
+		else if ((*tok)->content_size == IREDIR)
+		{
+			if (feed_redir(tok, status, &new_node, IREDIR))
 				return (NULL);
 		}
 	}
