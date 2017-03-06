@@ -6,12 +6,11 @@
 /*   By: hdelaby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 14:29:30 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/07 17:15:38 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 10:08:05 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf.h"
 
 char	*ft_strtrim(char const *s)
 {
