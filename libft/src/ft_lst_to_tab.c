@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 15:45:16 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/26 14:27:26 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 09:40:36 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**ft_lst_to_tab(t_list *lst)
 	if (!lst)
 		return (NULL);
 	siz = ft_lstsize(lst);
-	tab = (char **)malloc(sizeof(char *) * siz + 2);
+	tab = (char **)malloc(sizeof(char *) * siz + 1);
 	if (!tab)
 		return (NULL);
 	ptr = tab;

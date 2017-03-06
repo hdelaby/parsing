@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/03 11:47:05 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 09:11:52 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	display_tree(t_ast *tree)
 	if (!tree)
 		return ;
 	if (tree->type == ARG_NODE)
-	{
 		ft_putlst(tree->redir);
-	}
 	else
 	{
 		ft_putnbr(tree->type);
@@ -38,7 +36,7 @@ int		main(void)
 	t_ast	*tree;
 
 	tree = NULL;
-	cmd = ft_strdup("/bin/ls -l | /usr/bin/wc -l ; /bin/echo lol\n");
+	cmd = ft_strdup("/bin/ls -l | /usr/bin/wc -l ; /bin/echo lol ; /bin/echo mdr | /bin/cat -e\n");
 	if ((lst = lex_cmd(cmd)))
 	{
 		tree = parser(lst);
