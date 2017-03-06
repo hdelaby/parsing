@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/06 11:11:31 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/06 15:16:20 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS= -Wall -Wextra -Werror
 
 LIBDIR= libft/
 LIBNAME = libft/libft.a
-LIBFLAGS= -Llibft -lft
+LIBFLAGS= -Llibft -lft -ltermcap
 
 INC= -I./includes -I./libft/includes
 
@@ -28,7 +28,18 @@ SRC_NAME = main.c\
 		   parser.c\
 		   ast.c\
 		   execution.c\
-		   exec_redir.c
+		   exec_redir.c\
+		   get_key.c\
+		   ft_getwinsz.c\
+		   tc_putc.c\
+		   line_editing.c\
+		   set_term_mode.c\
+		   get_input.c\
+		   cursor_motion.c\
+		   content_navigation.c\
+		   history.c\
+		   ft_dlstsize.c\
+		   ft_dlstdelstr.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

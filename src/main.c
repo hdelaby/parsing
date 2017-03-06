@@ -6,13 +6,14 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 14:59:55 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 15:47:22 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "ast.h"
 #include "execution.h"
+#include "line_edition.h"
 
 void	display_tree(t_ast *tree)
 {
@@ -36,7 +37,9 @@ int		main(void)
 	t_ast	*tree;
 
 	tree = NULL;
-	cmd = ft_strdup("/bin/cat 0< coucou ; /bin/ls -l\n");
+	/* ft_putstr("21sh $> "); */
+	/* cmd = line_editing(); */
+	cmd = ft_strdup("/bin/ls -l\n");
 	if ((lst = lex_cmd(cmd)))
 	{
 		tree = parser(lst);

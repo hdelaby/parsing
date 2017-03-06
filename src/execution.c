@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 14:32:03 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 15:40:07 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	execute(t_ast *tree)
 {
 	if (!tree)
 		return ;
+	if (tree->type == ARG_NODE)
+		handle_pipe_node(tree);
 	handle_pipe_node(tree->left);
 	if (tree->right && tree->right->type == SEQ_NODE)
 		execute(tree->right);

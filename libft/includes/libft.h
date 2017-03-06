@@ -6,7 +6,7 @@
 /*   By: hdelaby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 15:07:18 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/13 15:47:48 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/06 15:13:15 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_dlist
+{
+	void			*content;
+	size_t			content_size;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}				t_dlist;
 
 /*
 ** MEMORY
@@ -144,6 +152,21 @@ void			ft_lstbubsort(t_list **head, int (*cmp)());
 void			ft_lstdelstr(void *content, size_t content_size);
 void			*ft_lstpop(t_list **lst);
 void			*ft_lstlastcontent(t_list *list);
+
+/*
+** DOUBLY LINKED LISTS
+*/
+
+t_dlist			*ft_dlstnew(void const *content, size_t content_size);
+t_dlist			*ft_dlstgethead(t_dlist *dlst);
+t_dlist			*ft_dlstgettail(t_dlist *dlst);
+void			ft_dlstadd(t_dlist **head, t_dlist *new);
+void			ft_dlstaddback(t_dlist **head, t_dlist *new);
+void			ft_dlstremoveif(t_dlist **head, int cmp());
+void			ft_dlstremovenode(t_dlist **head);
+char			*ft_dlst_to_nstr(t_dlist *lst, size_t n);
+char			*ft_dlst_to_str(t_dlist *lst);
+size_t			ft_dlstsize(t_dlist *lst);
 
 /*
 ** TAB
