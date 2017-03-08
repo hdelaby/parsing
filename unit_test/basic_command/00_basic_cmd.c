@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:47:00 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/08 12:01:52 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/08 16:22:52 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		test(void)
 	close(pfd[1]);
 	dup2(in_fd, STDOUT_FILENO);
 	close(in_fd);
-	ft_putendl(str);
 	return (EXIT_SUCCESS);
 }
 

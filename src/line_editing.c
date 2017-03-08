@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 09:51:53 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 15:42:33 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/08 16:00:05 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ void	input_loop(t_line *line)
 {
 	int		key_pressed;
 
+	ft_getwinsz(&line->winsz);
 	while (42)
 	{
-		key_pressed = get_key();
 		ft_getwinsz(&line->winsz);
+		key_pressed = get_key();
 		if (line->start.row + line->cursor / line->winsz.col > line->winsz.row)
 			line->start.row--;
 		match_move(key_pressed, line);
@@ -94,7 +95,7 @@ void	input_loop(t_line *line)
 			line->start.row = 1;
 			set_curpos(line);
 		}
-		if (key_pressed == '\n')
+		if (key_pressed == '\n' || !key_pressed)
 			break ;
 	}
 }
@@ -102,17 +103,22 @@ void	input_loop(t_line *line)
 char	*line_editing(void)
 {
 	t_line	line;
+	char	*str;
 
+	str = NULL;
+	if (!isatty(STDIN_FILENO))
+		while (get_next_line(STDIN_FILENO, &str) > 0)
+			return (str);
 	raw_term_mode();
 	ft_bzero(&line, sizeof(line));
-	/* line.hist = retrieve_history(); */
-	/* line.hist_size = ft_dlstsize(line.hist); */
+	line.hist = retrieve_history();
+	line.hist_size = ft_dlstsize(line.hist);
 	get_cursor_start_pos(&line);
 	input_loop(&line);
 	cursor_to_end(&line);
 	default_term_mode();
 	ft_putchar('\n');
 	/* append_history(line.cmd); */
-	/* ft_dlstdelstr(&line.hist); */
+	ft_dlstdelstr(&line.hist);
 	return (ft_strdup(line.cmd));
 }

@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 11:47:05 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/01 11:08:37 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/08 15:49:19 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,16 @@ int			get_key(void)
 {
 	char	*key_str;
 	int		key_pressed;
+	int		ret;
 
 	key_str = ft_strnew(MAX_KEY_LEN);
 	if (!key_str)
 		return (-1);
-	read(0, key_str, 1);
+	ret = read(STDIN_FILENO, key_str, 1);
+	if (ret == 0 || ret == -1 || *key_str == 4)
+		return (0);
 	if (*key_str == '\x1b')
-		read(0, key_str + 1, MAX_KEY_LEN - 1);
+		read(STDIN_FILENO, key_str + 1, MAX_KEY_LEN - 1);
 	key_pressed = match_key(key_str, 0);
 	free(key_str);
 	return (key_pressed);

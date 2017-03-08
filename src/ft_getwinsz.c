@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/08 09:44:39 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/17 15:17:24 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/08 15:47:45 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 int		ft_getwinsz(t_winsz *winsz)
 {
 	struct winsize	w;
-
-	if (ioctl(0, TIOCGWINSZ, &w))
+	
+	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) && ioctl(STDIN_FILENO, TIOCGWINSZ,
+				&w))
 		return (1);
 	winsz->col = w.ws_col;
 	winsz->row = w.ws_row;
