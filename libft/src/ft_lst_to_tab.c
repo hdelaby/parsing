@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 15:45:16 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 09:40:36 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/09 12:15:22 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ char	**ft_lst_to_tab(t_list *lst)
 	ptr = tab;
 	while (lst)
 	{
-		*(tab++) = ft_strdup((char *)lst->content);
+		*tab = ft_strdup((char *)lst->content);
+		if (!lst->next)
+			break ;
 		lst = lst->next;
+		tab++;
 	}
 	*tab = NULL;
 	return (ptr);
