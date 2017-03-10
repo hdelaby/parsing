@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/15 11:40:42 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/02 09:32:07 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/03/10 11:25:10 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/03/10 11:38:38 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef LEXER_H
+# define LEXER_H
 
 # include "libft.h"
-# include "ast.h"
 
 # define MAX_TOKEN_LEN 256
 
@@ -40,20 +39,6 @@ struct			s_parsingtab
 	char	key;
 	void	(*p)(t_token *tok, t_list **tokens_lst);
 };
-
-typedef struct	s_cmdlist
-{
-	int					type;
-	t_list				*args;
-	t_list				*redir;
-	struct s_cmdlist	*next;
-}				t_cmdlist;
-
-/*
-** parser.c
-*/
-
-t_ast	*parser(t_list *tok);
 
 /*
 ** lexer.c

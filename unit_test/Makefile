@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/08 11:52:03 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/10 16:43:12 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME_PATH =	./
 SRC_PATH =	./
 
 VPATH = .:basic_command
-SRC_NAME =	main.c 00_basic_cmd.c
+SRC_NAME =	main.c 00_basic_cmd.c 01_bin_echo.c
 
 OBJ_PATH =	./obj/
 OBJ_NAME =	$(SRC_NAME:.c=.o)
@@ -59,4 +59,4 @@ fclean: clean
 re: fclean all
 
 .NOTPARALLEL: re
-	.PHONY: all clean fclean re run
+.PHONY: all clean fclean re run

@@ -6,11 +6,11 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 09:24:31 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/28 09:33:26 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/10 11:37:07 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "lexer.h"
 
 void		end_token(t_token *tok, t_list **lst)
 {

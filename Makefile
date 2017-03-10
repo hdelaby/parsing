@@ -6,27 +6,29 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/09 15:06:44 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/10 16:07:15 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= parsing
-CC= gcc
-CFLAGS= -Wall -Wextra -Werror -g
+NAME = parsing
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-LIBDIR= libft/
-LIBNAME = libft/libft.a
-LIBFLAGS= -Llibft -lft -ltermcap
+LIBDIR = libft/
+LIBNAME  = libft/libft.a
+LIBFLAGS = -Llibft -lft -ltermcap
 
 INC= -I./includes -I./libft/includes
 
-SRC_PATH = src
-SRC_NAME = main.c\
-		   handlers_operands.c\
+SRC_PATH = src/
+VPATH = .: src/line_edition src/parsing src/lexing src/execution src
+SRC_NAME = handlers_operands.c\
 		   handlers_other.c\
 		   lexer.c\
 		   parser.c\
+		   grammar_elem.c\
 		   ast.c\
+		   astdel.c\
 		   execution.c\
 		   exec_redir.c\
 		   get_key.c\
@@ -40,13 +42,14 @@ SRC_NAME = main.c\
 		   history.c\
 		   ft_dlstsize.c\
 		   ft_dlstdelstr.c\
-		   ft_tabadd.c
+		   ft_tabadd.c\
+		   main.c
 
-OBJ_PATH = obj
+OBJ_PATH = obj/
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
-SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
 all: $(NAME)
 
@@ -55,7 +58,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(LIBFLAGS) $(INC) -o $@ $^
 	@echo "\033[32m$(NAME) created successfully\033[0m"
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
@@ -68,3 +71,6 @@ fclean: clean
 	@rm -f $(LIBNAME)
 
 re: fclean all
+
+.NOTPARALLEL: re
+.PHONY: all clean fclean re

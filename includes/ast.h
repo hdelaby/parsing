@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 13:37:06 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/09 15:15:49 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/10 16:06:47 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_ast
 
 t_ast	*ast_node(int type, t_ast *left, t_ast *right);
 t_ast	*ast_leaf(int type);
+void	astdel(t_ast **tree);
 
 char	**ft_tabadd(char **tab, char *str);
 
