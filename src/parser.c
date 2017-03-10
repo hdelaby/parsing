@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:58:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 15:31:08 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/09 15:14:14 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,7 @@ t_ast	*list(t_list **tok, int *status)
 	{
 		if ((*tok)->content_size == WORD)
 		{
-			ft_lstaddback(&new_node->args, ft_lstnew((*tok)->content,
-						ft_strlen((*tok)->content) + 1));
+			new_node->args = ft_tabadd(new_node->args, (*tok)->content);
 			if (eat(tok, WORD, status))
 				return (NULL);
 		}

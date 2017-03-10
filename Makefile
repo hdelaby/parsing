@@ -6,13 +6,13 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/06 15:16:20 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/09 15:06:44 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME= parsing
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -g
 
 LIBDIR= libft/
 LIBNAME = libft/libft.a
@@ -39,7 +39,8 @@ SRC_NAME = main.c\
 		   content_navigation.c\
 		   history.c\
 		   ft_dlstsize.c\
-		   ft_dlstdelstr.c
+		   ft_dlstdelstr.c\
+		   ft_tabadd.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

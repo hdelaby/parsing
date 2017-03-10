@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 15:40:07 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/09 15:16:32 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ void	apply_redir(t_list *lst)
 
 void	execute_cmd(t_ast *tree)
 {
-	char	**cmd;
-
-	cmd = ft_lst_to_tab(tree->args);
-	apply_redir(tree->redir);
-	execve(cmd[0], cmd, NULL);
+	//apply_redir(tree->redir);
+	execve(tree->args[0], tree->args, NULL);
 }
 
 void	run_pipe(t_ast *tree, int in_fd)
