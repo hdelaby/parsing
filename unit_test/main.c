@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:39:37 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/11 09:56:17 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/11 13:01:28 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int		main(void)
 
 	ret = 0;
 	ret += basic_cmd();
+	ft_putendl("_________________");
 	ret += pipe_cmd();
+	ft_putendl("_________________");
+	ret += semico_cmd();
 	return (ret);
 }

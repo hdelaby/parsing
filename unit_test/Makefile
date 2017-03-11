@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/11 09:58:28 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/11 15:48:24 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,14 @@ NAME =		test
 NAME_PATH =	./
 SRC_PATH =	./
 
-VPATH = .:basic_command pipe_command
-SRC_NAME =	main.c\
+VPATH = .:basic_command pipe_command semi_command
+SRC_NAME =	main.c micro_framework.c\
 			\
 			00_basic_cmd.c 01_bin_echo.c 02_bin_echo_opt_n.c\
 			\
-			00_pipe_cmd.c 01_pipe_one.c
+			00_pipe_cmd.c 01_pipe_one.c 02_pipe_two.c\
+			\
+			00_semico_cmd.c 01_semico_one.c 02_semico_two.c
 
 OBJ_PATH =	./obj/
 OBJ_NAME =	$(SRC_NAME:.c=.o)
