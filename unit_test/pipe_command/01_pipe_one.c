@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:03:05 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/10 17:06:24 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/11 10:01:28 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		pipe_one(void)
 	pipe(pfd);
 	in_fd = dup(STDOUT_FILENO);
 	dup2(pfd[1], STDOUT_FILENO);
-	system("../parsing < pipe_command/02_input");
+	system("../parsing < pipe_command/01_input");
 	ret = read(pfd[0], &str, 1000);
 	str[ret] = '\0';
 	close(pfd[0]);

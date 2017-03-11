@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:39:37 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/08 11:48:59 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/11 09:56:17 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,10 @@
 
 int		main(void)
 {
-	return (basic_cmd());
+	int		ret;
+
+	ret = 0;
+	ret += basic_cmd();
+	ret += pipe_cmd();
+	return (ret);
 }

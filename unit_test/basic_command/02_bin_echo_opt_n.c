@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 16:49:45 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/10 16:49:56 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/11 10:00:40 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libunit.h"
 #include "libft.h"
 
-int		bin_echo_opt_b(void)
+int		bin_echo_opt_n(void)
 {
 	int		pfd[2];
 	int		in_fd;
