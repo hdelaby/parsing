@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/09 15:16:32 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/12 11:32:23 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,25 @@ void	apply_redir(t_list *lst)
 void	execute_cmd(t_ast *tree)
 {
 	//apply_redir(tree->redir);
-	execve(tree->args[0], tree->args, NULL);
+	char	*path;
+	char	**tab_path;
+	int		i;
+
+	i = 0;
+	if (!ft_strchr(tree->args[0], '/'))
+	{
+		path = getenv("PATH");
+		tab_path = ft_strsplit(path, ':');
+		while (tab_path[i])
+		{
+			if (!(path = ft_build_path(tab_path[i], tree->args[0])))
+				return ;
+			execve(path, tree->args, NULL);
+			i++;
+		}
+	}
+	else
+		execve(tree->args[0], tree->args, NULL);
 }
 
 void	run_pipe(t_ast *tree, int in_fd)
@@ -49,13 +67,13 @@ void	run_pipe(t_ast *tree, int in_fd)
 		execute_cmd(tree->left);
 		exit(1);
 	}
-	dup2(pdes[READ_END], STDIN_FILENO);
 	close(pdes[WRITE_END]);
 	wait(NULL);
 	if (tree->right->type == PIPE_NODE)
 		run_pipe(tree->right, pdes[READ_END]);
 	else
 	{
+		dup2(pdes[READ_END], STDIN_FILENO);
 		execute_cmd(tree->right);
 		close(pdes[READ_END]);
 	}
@@ -84,11 +102,11 @@ void	execute(t_ast *tree)
 {
 	if (!tree)
 		return ;
-	if (tree->type == ARG_NODE)
-		handle_pipe_node(tree);
-	handle_pipe_node(tree->left);
-	if (tree->right && tree->right->type == SEQ_NODE)
+	if (tree->type == SEQ_NODE)
+	{
+		handle_pipe_node(tree->left);
 		execute(tree->right);
+	}
 	else
-		handle_pipe_node(tree->right);
+		handle_pipe_node(tree);
 }

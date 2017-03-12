@@ -6,11 +6,12 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:32:05 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/10 10:00:23 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/12 14:38:36 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "parser.h"
+#include "line_edition.h"
 
 void	handle_quote(t_token *tok, t_list **lst)
 {
@@ -40,7 +41,9 @@ void	handle_dquote(t_token *tok, t_list **lst)
 {
 	(void)lst;
 	tok->type = WORD;
-	while (*tok->cmd != '\"')
+	while (*tok->cmd && *tok->cmd != '\"')
 		tok->str[tok->index++] = *tok->cmd++;
+	if (!*tok->cmd)
+		line_editing();
 	tok->cmd++;
 }
