@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 10:19:38 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/17 15:17:11 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/13 11:14:02 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	insert_char(t_line *line, int key)
 	line->length++;
 	line->cursor++;
 	tputs(tgetstr("im", NULL), 1, &tc_putc);
-	ft_putchar_fd(key, 0);
+	if (key != '\n')
+		ft_putchar_fd(key, 0);
 	tputs(tgetstr("ei", NULL), 1, &tc_putc);
 }
 
