@@ -1,0 +1,12 @@
+TO DO:
+	-> Separate behaviour of tty and not tty
+	-> Include environment
+	-> Signal handling (ignore most signals...)
+	-> Check that " ' and | are over in the lexer
+	-> Modify history to work without file
+	-> Collect info on execution (exit code...)
+
+BONUS:
+	-> Alias (and pre launch file)
+	-> && and ||
+	-> Auto completion
