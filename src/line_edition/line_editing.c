@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 09:51:53 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/08 16:00:05 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/20 13:14:30 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,11 @@ char	*line_editing(void)
 
 	str = NULL;
 	if (!isatty(STDIN_FILENO))
+	{
 		while (get_next_line(STDIN_FILENO, &str) > 0)
 			return (str);
+		return (NULL);
+	}
 	raw_term_mode();
 	ft_bzero(&line, sizeof(line));
 	line.hist = retrieve_history();

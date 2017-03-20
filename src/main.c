@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/10 16:28:43 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/20 12:14:04 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,23 @@ int		main(void)
 	char	*cmd;
 	t_ast	*tree;
 
-	tree = NULL;
-	/* ft_putstr("21sh $> "); */
-	cmd = line_editing();
-	/* cmd = ft_strdup("/bin/ls -l\n"); */
-	if ((lst = lex_cmd(cmd)))
+	while (42)
 	{
-		tree = parser(lst);
-		ft_lstdel(&lst, &ft_lstdelstr);
+		tree = NULL;
+		/* ft_putstr("21sh $> "); */
+		cmd = line_editing();
+		if (!cmd)
+			break ;
+		if ((lst = lex_cmd(cmd)))
+		{
+			tree = parser(lst);
+			ft_lstdel(&lst, &ft_lstdelstr);
+		}
+		free(cmd);
+		if (!tree)
+			return (1);
+		execute(tree);
+		astdel(&tree);
 	}
-	free(cmd);
-	if (!tree)
-		return (1);
-	execute(tree);
-	astdel(&tree);
 	/* display_tree(tree); */
 }
