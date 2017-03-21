@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 08:40:24 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 09:16:32 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ void	display_tree(t_ast *tree)
 	display_tree(tree->right);
 }
 
+char	*get_input(void)
+{
+	char	*str;
+
+	str = NULL;
+	if (!isatty(STDIN_FILENO))
+	{
+		if (get_next_line(STDIN_FILENO, &str) > 0)
+			return (str);
+		return (NULL);
+	}
+	ft_putstr_fd("21sh &> ", 0);
+	return (line_editing());
+}
+
 int		main(void)
 {
 	t_list	*lst;
@@ -39,11 +54,10 @@ int		main(void)
 	while (42)
 	{
 		tree = NULL;
-		/* ft_putstr("21sh $> "); */
-		cmd = line_editing();
+		cmd = get_input();
 		if (!cmd)
 			break ;
-		if (!ft_strcmp(cmd, "exit"))
+		if (!ft_strcmp(cmd, "exit\n"))
 			break ;
 		if ((lst = lex_cmd(cmd)))
 		{
