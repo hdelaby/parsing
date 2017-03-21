@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:32:05 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/20 12:04:21 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 08:41:15 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	handle_dquote(t_token *tok, t_list **lst)
 {
 	(void)lst;
 	tok->type = WORD;
-	while (*tok->cmd != '\"')
+	while (*tok->cmd && *tok->cmd != '\"')
 		tok->str[tok->index++] = *tok->cmd++;
+	if (!*tok->cmd)
+		line_editing();
 	tok->cmd++;
 }
