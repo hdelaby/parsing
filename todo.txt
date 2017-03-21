@@ -6,7 +6,7 @@ TO DO:
 	-> [OK] Modify history to work without file
 		BUG> [OK] If I modify a history entry, the unfinished cmd is saved !
 		EASY> Clean history.c
-	-> Collect info on execution (exit code...)
+	-> [OK] Collect info on execution (exit code...)
 
 BONUS:
 	-> Alias (and pre launch file)

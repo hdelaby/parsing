@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 12:11:18 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 15:47:33 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
  ** architecture. Right now it is unclear what functions are doing.
  ** Also need to insert builtin etc.
  */
+
+int		get_status(int status)
+{
+	int		ret;
+
+	ret = 0;
+	if (WIFEXITED(status))
+		ret = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		ret = WTERMSIG(status);
+	return (ret);
+}
 
 void	apply_redir(t_list *lst)
 {
@@ -47,12 +59,14 @@ void	execute_cmd(t_ast *tree, t_sh *sh)
 	}
 	else
 		execve(tree->args[0], tree->args, sh->env);
+	exit(1);
 }
 
 void	run_pipe(t_ast *tree, int in_fd, t_sh *sh)
 {
 	int		pdes[2];
 	pid_t	child;
+	int		status;
 
 	pipe(pdes);
 	child = fork();
@@ -68,7 +82,8 @@ void	run_pipe(t_ast *tree, int in_fd, t_sh *sh)
 		exit(1);
 	}
 	close(pdes[WRITE_END]);
-	wait(NULL);
+	wait(&status);
+	sh->status = get_status(status);
 	if (tree->right->type == PIPE_NODE)
 		run_pipe(tree->right, pdes[READ_END], sh);
 	else
@@ -82,6 +97,7 @@ void	run_pipe(t_ast *tree, int in_fd, t_sh *sh)
 void	handle_pipe_node(t_ast *tree, t_sh *sh)
 {
 	pid_t	child;
+	int		status;
 
 	if (!tree)
 		return ;
@@ -95,7 +111,8 @@ void	handle_pipe_node(t_ast *tree, t_sh *sh)
 		else
 			execute_cmd(tree, sh);
 	}
-	wait(NULL);
+	wait(&status);
+	sh->status = get_status(status);
 }
 
 void	execute(t_ast *tree, t_sh *sh)
