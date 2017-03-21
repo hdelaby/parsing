@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 09:51:53 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 11:26:16 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 14:01:21 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	input_loop(t_line *line)
 		if (line->start.row + line->cursor / line->winsz.col > line->winsz.row)
 			line->start.row--;
 		match_move(key_pressed, line);
-		/* match_hist(key_pressed, line); */
+		match_hist(key_pressed, line);
 		if (key_pressed > 31 && key_pressed < 127)
 			insert_char(line, key_pressed);
 		if (key_pressed == KEY_DC || key_pressed == 127)
@@ -96,25 +96,25 @@ void	input_loop(t_line *line)
 			set_curpos(line);
 		}
 		if (key_pressed == '\n' || !key_pressed)
-		{
-			insert_char(line, key_pressed);
 			break ;
-		}
 	}
 }
 
-char	*line_editing(void)
+char	*line_editing(t_dlist **hist)
 {
 	t_line	line;
 
 	raw_term_mode();
 	ft_bzero(&line, sizeof(line));
-	/* line.hist = hist; */
-	/* line.hist_size = ft_dlstsize(line.hist); */
+	line.hist = *hist;
+	line.hist_size = ft_dlstsize(line.hist);
 	get_cursor_start_pos(&line);
 	input_loop(&line);
 	cursor_to_end(&line);
 	default_term_mode();
+	line.hist = ft_dlstgethead(line.hist);
+	if (line.hist && line.hist->content_size == SPE_CMD_LEN)
+		ft_dlstremovenode(&line.hist);
 	ft_putchar_fd('\n', 0);
 	return (ft_strdup(line.cmd));
 }

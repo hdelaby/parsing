@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 09:52:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/17 14:11:57 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:58:22 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 
 # define MAX_CMD_LEN 4096
+# define SPE_CMD_LEN 5042
 
 typedef struct	s_winsz
 {
@@ -52,7 +53,7 @@ struct	s_keyhist
 	void	(*p)(t_line *line, t_dlist **hist);
 };
 
-char			*line_editing(void);
+char			*line_editing(t_dlist **hist);
 void			ft_dlstdelstr(t_dlist **lst);
 
 /*

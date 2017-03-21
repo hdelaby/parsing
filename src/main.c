@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 12:07:35 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:37:46 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 #include "line_edition.h"
 #include "shell.h"
 
-char	*get_input(void)
+char	*get_input(t_sh *sh)
 {
 	char			*str;
-	static t_dlist	*hist;
 
 	str = NULL;
-	hist = NULL;
 	if (!isatty(STDIN_FILENO))
 	{
 		if (get_next_line(STDIN_FILENO, &str) > 0)
@@ -30,7 +28,10 @@ char	*get_input(void)
 		return (NULL);
 	}
 	ft_putstr_fd("21sh &> ", 0);
-	return (line_editing());
+	str = line_editing(&sh->hist);
+	sh->hist = ft_dlstgethead(sh->hist);
+	ft_dlstadd(&sh->hist, ft_dlstnew(str, ft_strlen(str) + 1));
+	return (str);
 }
 
 void	feed_sh(t_sh *sh, char **environ)
@@ -52,8 +53,8 @@ int		main(int argc, char **argv, char **environ)
 	while (42)
 	{
 		tree = NULL;
-		cmd = get_input();
-		if (!cmd || !ft_strcmp(cmd, "exit\n"))
+		cmd = get_input(&sh);
+		if (!cmd || !ft_strcmp(cmd, "exit"))
 			break ;
 		if ((lst = lex_cmd(cmd)))
 		{

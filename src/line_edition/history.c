@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 15:12:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/02/17 13:54:23 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 13:59:49 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,17 @@ void		new_hist_entry(t_line *line, t_dlist **hist)
 
 void		old_hist_entry(t_line *line, t_dlist **hist)
 {
+	t_dlist *new_node;
+
 	if (line->hist && line->hist_depth == line->hist_size)
 		return ;
 	if (!line->hist_depth)
-		ft_dlstadd(hist, ft_dlstnew(line->cmd, ft_strlen(line->cmd) + 1));
+	{
+		new_node = ft_dlstnew(line->cmd, ft_strlen(line->cmd) + 1);
+		if (new_node)
+			new_node->content_size = SPE_CMD_LEN;
+		ft_dlstadd(hist, new_node);
+	}
 	*hist = (*hist)->next;
 	line->hist_depth++;
 	feed_line(line, (*hist)->content);
