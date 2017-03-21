@@ -1,6 +1,6 @@
 TO DO:
-	-> Separate behaviour of tty and not tty
-	-> Include environment
+	-> [OK] Separate behaviour of tty and not tty
+	-> [OK] Include environment
 	-> Signal handling (ignore most signals...)
 	-> Check that " ' and | are over in the lexer
 	-> Modify history to work without file

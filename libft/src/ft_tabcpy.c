@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   ft_tabcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/03 10:49:47 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 12:10:52 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/03/21 11:40:07 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/03/21 11:41:37 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include "libft.h"
 
-# include "parser.h"
-# include "ast.h"
-# include "shell.h"
-# include <fcntl.h>
+char	**ft_tabcpy(char **array)
+{
+	char	**ret;
+	int		i;
 
-# define READ_END	0
-# define WRITE_END	1
-
-void	execute(t_ast *tree, t_sh *sh);
-
-#endif
+	i = 0;
+	ret = (char **)malloc(sizeof(char *) * (ft_tablen(array) + 1));
+	if (!ret)
+		return (NULL);
+	while (array[i])
+	{
+		ret[i] = ft_strdup(array[i]);
+		i++;
+	}
+	ret[i] = NULL;
+	return (ret);
+}

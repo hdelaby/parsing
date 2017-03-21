@@ -6,7 +6,7 @@
 /*   By: hdelaby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 15:07:18 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 15:13:15 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 11:42:22 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ size_t			ft_tablen(char **tab);
 void			ft_tabdel(char **tab);
 char			**ft_lst_to_tab(t_list *lst);
 char			**ft_tabjoin(char **tab1, char **tab2);
+char			**ft_tabcpy(char **array);
 
 /*
 ** OTHERS

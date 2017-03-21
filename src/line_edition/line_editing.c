@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 09:51:53 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 09:00:52 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/21 11:26:16 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,12 @@ char	*line_editing(void)
 
 	raw_term_mode();
 	ft_bzero(&line, sizeof(line));
-	line.hist = retrieve_history();
-	line.hist_size = ft_dlstsize(line.hist);
+	/* line.hist = hist; */
+	/* line.hist_size = ft_dlstsize(line.hist); */
 	get_cursor_start_pos(&line);
 	input_loop(&line);
 	cursor_to_end(&line);
 	default_term_mode();
 	ft_putchar_fd('\n', 0);
-	/* append_history(line.cmd); */
-	ft_dlstdelstr(&line.hist);
 	return (ft_strdup(line.cmd));
 }
