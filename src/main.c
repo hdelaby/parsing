@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 15:37:19 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/22 15:36:18 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "execution.h"
 #include "line_edition.h"
 #include "shell.h"
+#include "environ.h"
+
+#include <stdio.h>
 
 char	*get_input(t_sh *sh)
 {

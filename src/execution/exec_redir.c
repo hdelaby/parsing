@@ -6,11 +6,11 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:42:08 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/06 14:55:39 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/22 09:56:14 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_redir.h"
+#include "execution.h"
 
 int		ft_isnumber(char *str)
 {

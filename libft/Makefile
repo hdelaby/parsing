@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/04 12:49:13 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/21 11:42:43 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/22 15:38:35 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,6 +123,8 @@ SRC_NAME = ft_memset.c \
 		   ft_isdir.c\
 		   ft_tabjoin.c\
 		   ft_tabcpy.c\
+		   ft_tabadd.c\
+		   ft_tabremove.c\
 		   \
 		   ft_dlstnew.c\
 		   ft_dlstgethead.c\

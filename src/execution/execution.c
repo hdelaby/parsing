@@ -6,62 +6,23 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 09:33:49 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/22 11:53:58 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-#include "exec_redir.h"
 #include "signal_handling.h"
 
 /*
- ** This set of functions need to evolve to cover all cases of tree
- ** architecture. Right now it is unclear what functions are doing.
- ** Also need to insert builtin etc.
- */
-
-int		get_status(int status)
-{
-	int		ret;
-
-	ret = 0;
-	if (WIFEXITED(status))
-		ret = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		ret = WTERMSIG(status);
-	return (ret);
-}
+** This set of functions need to evolve to cover all cases of tree
+** architecture. Right now it is unclear what functions are doing.
+** Also need to insert builtin etc.
+*/
 
 void	apply_redir(t_list *lst)
 {
 	if (lst)
 		get_redir(lst);
-}
-
-void	execute_cmd(t_ast *tree, t_sh *sh)
-{
-	//apply_redir(tree->redir);
-	char	*path;
-	char	**tab_path;
-	int		i;
-
-	signal(SIGINT, SIG_DFL);
-	i = 0;
-	if (!ft_strchr(tree->args[0], '/'))
-	{
-		path = getenv("PATH");
-		tab_path = ft_strsplit(path, ':');
-		while (tab_path[i])
-		{
-			if (!(path = ft_build_path(tab_path[i], tree->args[0])))
-				return ;
-			execve(path, tree->args, sh->env);
-			i++;
-		}
-	}
-	else
-		execve(tree->args[0], tree->args, sh->env);
-	exit(1);
 }
 
 void	run_pipe(t_ast *tree, int in_fd, t_sh *sh)
@@ -98,23 +59,11 @@ void	run_pipe(t_ast *tree, int in_fd, t_sh *sh)
 
 void	handle_pipe_node(t_ast *tree, t_sh *sh)
 {
-	pid_t	child;
-	int		status;
-
 	if (!tree)
 		return ;
-	child = fork();
-	if ((int)child == -1)
-		return ;
-	else if ((int)child == 0)
-	{
-		if (tree->type == PIPE_NODE)
-			run_pipe(tree, STDIN_FILENO, sh);
-		else
-			execute_cmd(tree, sh);
-	}
-	wait(&status);
-	sh->status = get_status(status);
+	if (tree->type != PIPE_NODE)
+		return (execute_cmd(tree, sh));
+	run_pipe(tree, STDIN_FILENO, sh);
 }
 
 void	execute(t_ast *tree, t_sh *sh)

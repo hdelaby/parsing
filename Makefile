@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/20 12:08:04 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/22 12:01:38 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,13 @@ SRC_NAME = handlers_operands.c\
 		   handlers_other.c\
 		   lexer.c\
 		   parser.c\
+		   manip_env.c\
 		   grammar_elem.c\
 		   ast.c\
 		   astdel.c\
 		   execution.c\
 		   exec_redir.c\
+		   exec_cmd.c\
 		   get_key.c\
 		   ft_getwinsz.c\
 		   tc_putc.c\
@@ -43,6 +45,7 @@ SRC_NAME = handlers_operands.c\
 		   ft_dlstsize.c\
 		   ft_dlstdelstr.c\
 		   ft_tabadd.c\
+		   signal_handling.c\
 		   main.c
 
 OBJ_PATH = obj/
