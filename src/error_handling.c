@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_error.h                                         :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 13:10:07 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 16:39:47 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/01/11 16:32:21 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/01/14 14:46:06 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_ERROR_H
-# define SH_ERROR_H
+#include "sh_error.h"
 
-# include "libft.h"
-
-# define E_NOENT "No such file or directory"
-# define E_ACCES "Permission denied"
-# define E_NOCMD "Command not found"
-# define E_EINVAL "Invalid argument"
-
-int		ft_puterr(char *program, char *errmsg, char *arg, int error_code);
-
-#endif
+int		ft_puterr(char *program, char *errmsg, char *arg, int error_code)
+{
+	ft_putstr_fd(program, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(errmsg, 2);
+	if (arg)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(arg, 2);
+	}
+	else
+		ft_putchar_fd('\n', 2);
+	return (error_code);
+}

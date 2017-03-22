@@ -6,12 +6,13 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 11:09:49 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/22 16:45:15 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "signal_handling.h"
+#include "builtin.h"
 
 int		get_status(int status)
 {
@@ -51,10 +52,14 @@ void	my_execve(t_ast *tree, t_sh *sh)
 	exit(1);
 }
 
-int		execute_builtin(t_ast *tree)
+int		execute_builtin(t_ast *tree, t_sh *sh)
 {
-	if (!ft_strcmp(tree->args[0], "coucou"))
-		return (EXIT_SUCCESS);
+	if (!ft_strcmp(tree->args[0], "setenv"))
+		return (bi_setenv(tree->args, &sh->env));
+	else if (!ft_strcmp(tree->args[0], "unsetenv"))
+		return (bi_unsetenv(tree->args, &sh->env));
+	else if (!ft_strcmp(tree->args[0], "cd"))
+		return (bi_cd(tree->args, &sh->env));
 	return (-2);
 }
 
@@ -63,7 +68,7 @@ void	execute_cmd(t_ast *tree, t_sh *sh)
 	pid_t	child;
 	int		status;
 
-	if ((sh->status = execute_builtin(tree)) != -2)
+	if ((sh->status = execute_builtin(tree, sh)) != -2)
 		return ;
 	child = fork();
 	if ((int)child == -1)

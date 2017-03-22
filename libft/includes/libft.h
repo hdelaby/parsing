@@ -6,7 +6,7 @@
 /*   By: hdelaby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 15:07:18 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 15:39:50 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/22 16:42:43 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,5 +196,6 @@ char			*ft_extract_fname(char *path);
 char			ft_get_ftype(mode_t mode);
 int				ft_is_parent_dir(char *fname);
 int				ft_isdir(char *path);
+int				ft_canon_path(char **path);
 
 #endif

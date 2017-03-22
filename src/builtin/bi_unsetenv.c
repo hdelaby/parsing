@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_error.h                                         :+:      :+:    :+:   */
+/*   bi_unsetenv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 13:10:07 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 16:39:47 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/01/11 16:00:37 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/03/22 16:00:51 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_ERROR_H
-# define SH_ERROR_H
+#include "environ.h"
 
-# include "libft.h"
-
-# define E_NOENT "No such file or directory"
-# define E_ACCES "Permission denied"
-# define E_NOCMD "Command not found"
-# define E_EINVAL "Invalid argument"
-
-int		ft_puterr(char *program, char *errmsg, char *arg, int error_code);
-
-#endif
+int		bi_unsetenv(char **args, char ***env)
+{
+	if (args[1] == NULL)
+	{
+		ft_putendl("Usage:\nunsetenv [key ...]");
+		return (-1);
+	}
+	args = args + 1;
+	while (*args)
+		ft_unsetenv(*(args++), env);
+	return (0);
+}

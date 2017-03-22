@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/04 12:49:13 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/22 15:38:35 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/22 16:40:52 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ SRC_NAME = ft_memset.c \
 		   ft_build_path.c \
 		   ft_extract_fname.c \
 		   ft_get_ftype.c \
+		   ft_canon_path.c \
 		   ft_is_parent_dir.c \
 		   ft_lstbubsort.c \
 		   ft_lstrev.c \

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_error.h                                         :+:      :+:    :+:   */
+/*   bi_cd_extra.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 13:10:07 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 16:39:47 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/01/26 16:27:43 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/03/22 16:36:04 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_ERROR_H
-# define SH_ERROR_H
+#include "builtin.h"
 
-# include "libft.h"
-
-# define E_NOENT "No such file or directory"
-# define E_ACCES "Permission denied"
-# define E_NOCMD "Command not found"
-# define E_EINVAL "Invalid argument"
-
-int		ft_puterr(char *program, char *errmsg, char *arg, int error_code);
-
-#endif
+int	cd_get_option(char *arg, int *has_opt)
+{
+	if (!ft_strcmp(arg, "-"))
+		return (1);
+	arg += 1;
+	while (*arg)
+	{
+		if (*arg == 'P')
+			*has_opt = 1;
+		else if (*arg == 'L')
+			*has_opt = 0;
+		else
+			return (1);
+		arg += 1;
+	}
+	return (0);
+}

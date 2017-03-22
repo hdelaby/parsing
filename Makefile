@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/22 12:01:38 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/22 16:43:15 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIBFLAGS = -Llibft -lft -ltermcap
 INC= -I./includes -I./libft/includes
 
 SRC_PATH = src/
-VPATH = .: src/line_edition src/parsing src/lexing src/execution src
+VPATH = .: src/line_edition src/parsing src/lexing src/execution src/builtin \
+	src
 SRC_NAME = handlers_operands.c\
 		   handlers_other.c\
 		   lexer.c\
@@ -46,6 +47,11 @@ SRC_NAME = handlers_operands.c\
 		   ft_dlstdelstr.c\
 		   ft_tabadd.c\
 		   signal_handling.c\
+		   bi_setenv.c\
+		   bi_unsetenv.c\
+		   bi_cd.c\
+		   bi_cd_extra.c\
+		   error_handling.c\
 		   main.c
 
 OBJ_PATH = obj/

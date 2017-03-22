@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 15:08:14 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/11 16:42:20 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/01/11 15:26:39 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/01/11 15:26:44 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		cmp_find_env(char *content, char *env_var)
+int		bi_echo(char **args, t_list **env)
 {
-	if (!ft_strncmp(content, env_var, ft_strlen(env_var))
-			&& content[ft_strlen(env_var)] == '=')
-		return (1);
+	(void)env;
+	args += 1;
+	while (*args)
+	{
+		ft_putstr(*(args++));
+		ft_putchar(' ');
+	}
+	ft_putchar('\n');
 	return (0);
 }

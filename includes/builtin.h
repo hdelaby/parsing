@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_error.h                                         :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 13:10:07 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 16:39:47 by hdelaby          ###   ########.fr       */
+/*   Created: 2017/03/22 16:04:00 by hdelaby           #+#    #+#             */
+/*   Updated: 2017/03/22 16:37:52 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_ERROR_H
-# define SH_ERROR_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
+# include "sh_error.h"
 # include "libft.h"
+# include "sh_error.h"
 
-# define E_NOENT "No such file or directory"
-# define E_ACCES "Permission denied"
-# define E_NOCMD "Command not found"
-# define E_EINVAL "Invalid argument"
-
-int		ft_puterr(char *program, char *errmsg, char *arg, int error_code);
+int		bi_setenv(char **args, char ***env);
+int		bi_unsetenv(char **args, char ***env);
+int		bi_cd(char **args, char ***env);
+int		cd_get_option(char *arg, int *has_opt);
 
 #endif
