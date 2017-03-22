@@ -6,12 +6,13 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 15:47:33 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/22 09:33:49 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "exec_redir.h"
+#include "signal_handling.h"
 
 /*
  ** This set of functions need to evolve to cover all cases of tree
@@ -44,6 +45,7 @@ void	execute_cmd(t_ast *tree, t_sh *sh)
 	char	**tab_path;
 	int		i;
 
+	signal(SIGINT, SIG_DFL);
 	i = 0;
 	if (!ft_strchr(tree->args[0], '/'))
 	{
@@ -117,6 +119,7 @@ void	handle_pipe_node(t_ast *tree, t_sh *sh)
 
 void	execute(t_ast *tree, t_sh *sh)
 {
+	signal(SIGINT, &parent_sigint_handler);
 	if (!tree)
 		return ;
 	if (tree->type == SEQ_NODE)
