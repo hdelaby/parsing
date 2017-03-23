@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/22 16:43:15 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/23 10:15:37 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,8 @@ SRC_NAME = handlers_operands.c\
 		   bi_unsetenv.c\
 		   bi_cd.c\
 		   bi_cd_extra.c\
+		   bi_exit.c\
+		   bi_echo.c\
 		   error_handling.c\
 		   main.c
 

@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 16:45:15 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/23 10:16:01 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int		execute_builtin(t_ast *tree, t_sh *sh)
 		return (bi_unsetenv(tree->args, &sh->env));
 	else if (!ft_strcmp(tree->args[0], "cd"))
 		return (bi_cd(tree->args, &sh->env));
+	else if (!ft_strcmp(tree->args[0], "exit"))
+		return (bi_exit(tree->args, &sh->env));
+	else if (!ft_strcmp(tree->args[0], "echo"))
+		return (bi_echo(tree->args, &sh->env));
 	return (-2);
 }
 

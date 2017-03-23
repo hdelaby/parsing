@@ -6,11 +6,12 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 10:31:50 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/27 10:23:22 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/23 09:27:33 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+#include "sh_error.h"
 
 static int	is_number(char *str)
 {
@@ -22,7 +23,7 @@ static int	is_number(char *str)
 	return (1);
 }
 
-int			bi_exit(char **args, t_list **env)
+int			bi_exit(char **args, char ***env)
 {
 	int		ret;
 
@@ -36,6 +37,6 @@ int			bi_exit(char **args, t_list **env)
 		exit(ft_atoi(args[1]));
 	}
 	else
-		ret = get_exit_status(-1);
+		ret = 1;
 	exit(ret);
 }

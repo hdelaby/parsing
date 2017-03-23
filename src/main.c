@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/22 15:36:18 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/23 09:44:23 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		main(int argc, char **argv, char **environ)
 	{
 		tree = NULL;
 		cmd = get_input(&sh);
-		if (!cmd || !ft_strcmp(cmd, "exit"))
+		if (!cmd)
 			break ;
 		if ((lst = lex_cmd(cmd)))
 		{

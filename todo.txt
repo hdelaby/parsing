@@ -1,9 +1,11 @@
 TO DO:
-	-> [OK] Separate behaviour of tty and not tty
-	-> [OK] Include environment
-	-> Include builtin
 	-> Signal handling (ignore most signals...)
 	-> Check that " ' and | are over in the lexer
+	-> Redirections and reset FD
+	-> CTRL-L fix
+	-> [OK] Separate behaviour of tty and not tty
+	-> [OK] Include environment
+	-> [OK] Include builtin
 	-> [OK] Modify history to work without file
 		BUG> [OK] If I modify a history entry, the unfinished cmd is saved !
 		EASY> Clean history.c
