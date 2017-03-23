@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:48:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/23 14:08:22 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/23 16:07:34 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	run_pipe(t_ast *tree, int in_fd, t_sh *sh)
 {
 	int		pdes[2];
 	int		save_out;
+	int		status;
 	pid_t	child;
 
+	status = 0;
 	pipe(pdes);
 	child = fork();
 	if ((int)child == -1)
