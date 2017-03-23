@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/23 09:44:23 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/23 13:15:10 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,26 @@ int		main(int argc, char **argv, char **environ)
 	t_ast	*tree;
 	t_sh	sh;
 
+	/* int	pfd[2]; */
+	/* pid_t	pid; */
+	/* char *cmd2[] = { "/bin/cat", 0 }; */
+	/* char *cmd3[] = { "/bin/ls", "-l", 0 }; */
+
+	/* pipe(pfd); */
+	/* pid = fork(); */
+	/* if ((int)pid == 0) */
+	/* { */
+	/* 	close(pfd[1]); */
+	/* 	dup2(pfd[0], STDIN_FILENO); */
+	/* 	execve("/bin/cat", cmd2, NULL); */
+	/* } */
+	/* else */
+	/* { */
+	/* 	close(pfd[0]); */
+	/* 	dup2(pfd[1], STDOUT_FILENO); */
+	/* 	execve("/bin/ls", cmd3, NULL); */
+	/* } */
+	/* exit (0); */
 	(void)argc;
 	(void)argv;
 	feed_sh(&sh, environ);
