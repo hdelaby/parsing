@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:49:47 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/23 13:50:21 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 16:43:08 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define WR		O_WRONLY | O_TRUNC | O_CREAT
 # define WRAPD	O_WRONLY | O_APPEND | O_CREAT
 
-struct	s_redir
+struct			s_redir
 {
 	int		fd_dst;
 	int		redir_type;
@@ -42,6 +42,14 @@ struct	s_redir
 	int		arg_type;
 	char	*word;
 };
+
+typedef struct	s_backup
+{
+	int		stdin_cpy;
+	int		stdout_cpy;
+	int		stderr_cpy;
+	int		fds[50];
+}				t_backup;
 
 /*
 ** exec_redir.c
@@ -59,9 +67,16 @@ void	execute_cmd_bis(t_ast *tree, t_sh *sh);
 int		get_status(int status);
 
 /*
-** execution.c
+** explore_tree.c
 */
 
 void	execute(t_ast *tree, t_sh *sh);
+void	apply_redir(t_list *lst);
+
+/*
+** exec_pipe.c
+*/
+
+void	pipe_node(t_ast *tree, t_sh *sh);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 16:04:00 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/23 10:15:24 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 14:44:23 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@
 # include "libft.h"
 # include "sh_error.h"
 
-int		bi_setenv(char **args, char ***env);
-int		bi_unsetenv(char **args, char ***env);
-int		bi_cd(char **args, char ***env);
-int		cd_get_option(char *arg, int *has_opt);
-int		bi_exit(char **args, char ***env);
-int		bi_echo(char **args, char ***env);
+typedef struct	s_builtin
+{
+	char	*cmd;
+	int		(*fct)(char **, char ***);
+}				t_builtin;
+
+int				bi_setenv(char **args, char ***env);
+int				bi_unsetenv(char **args, char ***env);
+int				bi_cd(char **args, char ***env);
+int				cd_get_option(char *arg, int *has_opt);
+int				bi_exit(char **args, char ***env);
+int				bi_echo(char **args, char ***env);
 
 #endif

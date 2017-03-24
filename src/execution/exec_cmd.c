@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/23 13:49:49 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 16:50:23 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,19 @@ void	my_execve(t_ast *tree, t_sh *sh)
 
 int		execute_builtin(t_ast *tree, t_sh *sh)
 {
-	if (!ft_strcmp(tree->args[0], "setenv"))
-		return (bi_setenv(tree->args, &sh->env));
-	else if (!ft_strcmp(tree->args[0], "unsetenv"))
-		return (bi_unsetenv(tree->args, &sh->env));
-	else if (!ft_strcmp(tree->args[0], "cd"))
-		return (bi_cd(tree->args, &sh->env));
-	else if (!ft_strcmp(tree->args[0], "exit"))
-		return (bi_exit(tree->args, &sh->env));
-	else if (!ft_strcmp(tree->args[0], "echo"))
-		return (bi_echo(tree->args, &sh->env));
+	int					i;
+	static t_builtin	bi_tab[5] = {
+		{"setenv", &bi_setenv},
+		{"unsetenv", &bi_unsetenv},
+		{"cd", &bi_cd},
+		{"echo", &bi_echo},
+		{"exit", &bi_exit}
+	};
+
+	i = 0;
+	while (i < 5)
+		if (!ft_strcmp(tree->args[0], bi_tab[i++].cmd))
+			return (bi_tab[i - 1].fct(tree->args, &sh->env));
 	return (-2);
 }
 
@@ -79,6 +82,7 @@ void	execute_cmd_bis(t_ast *tree, t_sh *sh)
 	int		status;
 	pid_t	child;
 
+	apply_redir(tree->redir);
 	if ((sh->status = execute_builtin(tree, sh)) != -2)
 		return ;
 	child = fork();

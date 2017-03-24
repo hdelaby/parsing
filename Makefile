@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/23 10:15:37 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/24 15:03:25 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC_NAME = handlers_operands.c\
 		   grammar_elem.c\
 		   ast.c\
 		   astdel.c\
-		   execution.c\
+		   explore_tree.c\
+		   exec_pipe.c\
 		   exec_redir.c\
 		   exec_cmd.c\
 		   get_key.c\
