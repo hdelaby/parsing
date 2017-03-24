@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 16:50:23 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 17:28:32 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,26 @@ int		execute_builtin(t_ast *tree, t_sh *sh)
 	return (-2);
 }
 
-void	execute_cmd(t_ast *tree, t_sh *sh)
+int		execute_cmd(t_ast *tree, t_sh *sh)
 {
 	if ((sh->status = execute_builtin(tree, sh)) != -2)
-		return ;
+		return (sh->status);
 	my_execve(tree, sh);
+	return (sh->status);
 }
 
-void	execute_cmd_bis(t_ast *tree, t_sh *sh)
+int		execute_cmd_bis(t_ast *tree, t_sh *sh)
 {
 	int		status;
 	pid_t	child;
 
 	apply_redir(tree->redir);
 	if ((sh->status = execute_builtin(tree, sh)) != -2)
-		return ;
+		return (sh->status);
 	child = fork();
 	if ((int)child == 0)
 		my_execve(tree, sh);
 	wait(&status);
 	sh->status = get_status(status);
+	return (sh->status);
 }

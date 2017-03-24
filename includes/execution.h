@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:49:47 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 16:43:08 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 17:29:26 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	get_redir(t_list *redir);
 ** exec_cmd.c
 */
 
-void	execute_cmd(t_ast *tree, t_sh *sh);
-void	execute_cmd_bis(t_ast *tree, t_sh *sh);
+int		execute_cmd(t_ast *tree, t_sh *sh);
+int		execute_cmd_bis(t_ast *tree, t_sh *sh);
 
 int		get_status(int status);
 

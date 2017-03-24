@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:03:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 16:50:38 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 18:10:33 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,23 @@ void	exec_pipe(t_ast *tree, int in_fd, t_sh *sh)
 		return ;
 	else if ((int)child == 0)
 	{
+		close(pdes[READ_END]);
+		dup2(in_fd, STDIN_FILENO);
+		dup2(pdes[WRITE_END], STDOUT_FILENO);
+		exit(execute_cmd(tree->left, sh));
+	}
+	else
+	{
 		close(pdes[WRITE_END]);
 		if (tree->right->type == PIPE_NODE)
 			exec_pipe(tree->right, pdes[READ_END], sh);
 		else
 		{
 			dup2(pdes[READ_END], STDIN_FILENO);
-			execute_cmd(tree->right, sh);
+			sh->status = execute_cmd(tree->right, sh);
 		}
-		exit(sh->status);
-	}
-	else
-	{
-		close(pdes[READ_END]);
-		dup2(in_fd, STDIN_FILENO);
-		dup2(pdes[WRITE_END], STDOUT_FILENO);
-		if (!fork())
-			execute_cmd(tree->left, sh);
 		wait(NULL);
 	}
-	wait(NULL);
 	exit(sh->status);
 }
 
@@ -63,7 +60,10 @@ void	pipe_node(t_ast *tree, t_sh *sh)
 	if (!tree)
 		return ;
 	if (tree->type != PIPE_NODE)
-		return (execute_cmd_bis(tree, sh));
+	{
+		execute_cmd_bis(tree, sh);
+		return ;
+	}
 	child = fork();
 	if ((int)child == -1)
 		return ;
