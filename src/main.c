@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/23 16:11:06 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/25 17:43:57 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,46 @@ int		main(int argc, char **argv, char **environ)
 	t_ast	*tree;
 	t_sh	sh;
 
+	/* char	*cmd1[] = {"/bin/cat", NULL}; */
+	char	*cmd2[] = {"/bin/cat", "/dev/random", NULL};
+	char	*cmd3[] = {"/usr/bin/head", "-c", "100", NULL};
+	int		fd1[2];
+	/* int		fd2[2]; */
+
+	pid_t	child;
+	if (!(child = fork()))
+	{
+		pipe(fd1);
+		if (!fork())
+		{
+			close(fd1[0]);
+			dup2(fd1[1], STDOUT_FILENO);
+			execve(cmd2[0], cmd2, environ);
+			/* close(fd1[1]); */
+			/* pipe(fd2); */
+			/* if (!fork()) */
+			/* { */
+			/* 	close(fd2[0]); */
+			/* 	dup2(fd2[1], STDOUT_FILENO); */
+			/* 	execvp(cmd1[0], cmd1); */
+			/* } */
+			/* else */
+			/* { */
+			/* 	close(fd2[1]); */
+			/* 	dup2(fd2[0], STDIN_FILENO); */
+			/* 	execvp(cmd2[0], cmd2); */
+			/* } */
+		}
+		else
+		{
+			close(fd1[1]);
+			dup2(fd1[0], STDIN_FILENO);
+			execvp(cmd3[0], cmd3);
+		}
+	}
+	else
+		waitpid(child, NULL, 0);
+	exit(0);
 	(void)argc;
 	(void)argv;
 	feed_sh(&sh, environ);

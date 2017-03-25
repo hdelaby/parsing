@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:03:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 18:36:41 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/25 15:36:52 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,15 @@ void	exec_pipe(t_ast *tree, int in_fd, t_sh *sh)
 	{
 		close(pdes[READ_END]);
 		dup2(in_fd, STDIN_FILENO);
+		if (in_fd != STDIN_FILENO)
+			close(in_fd);
 		dup2(pdes[WRITE_END], STDOUT_FILENO);
+		close(pdes[WRITE_END]);
 		exit(execute_cmd(tree->left, sh));
 	}
 	else
 	{
+		exit(1);
 	}
 	exit(sh->status);
 }
