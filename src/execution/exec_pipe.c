@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:03:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 18:10:33 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/24 18:36:41 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 void	exec_pipe(t_ast *tree, int in_fd, t_sh *sh)
 {
 	int		pdes[2];
-	int		status;
 	pid_t	child;
 
-	status = 0;
 	pipe(pdes);
 	child = fork();
 	if ((int)child == -1)
@@ -33,15 +31,6 @@ void	exec_pipe(t_ast *tree, int in_fd, t_sh *sh)
 	}
 	else
 	{
-		close(pdes[WRITE_END]);
-		if (tree->right->type == PIPE_NODE)
-			exec_pipe(tree->right, pdes[READ_END], sh);
-		else
-		{
-			dup2(pdes[READ_END], STDIN_FILENO);
-			sh->status = execute_cmd(tree->right, sh);
-		}
-		wait(NULL);
 	}
 	exit(sh->status);
 }
