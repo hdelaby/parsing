@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/24 15:03:25 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/26 13:19:42 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRC_NAME = handlers_operands.c\
 		   history.c\
 		   ft_dlstsize.c\
 		   ft_dlstdelstr.c\
-		   ft_tabadd.c\
 		   signal_handling.c\
 		   bi_setenv.c\
 		   bi_unsetenv.c\
