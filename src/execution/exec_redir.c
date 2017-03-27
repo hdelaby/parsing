@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:42:08 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 15:20:52 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/27 14:48:16 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,17 @@ void	do_redir(struct s_redir *info, size_t type)
 	dup2(info->fd_src, info->fd_dst);
 }
 
-void    get_redir(t_list *redir)
+void    exec_redir(t_list *redir, t_list **fd_lst)
 {
 	struct s_redir	info;
 
-	ft_bzero(&info, sizeof(struct s_redir));
-	get_info(&info, redir->content, redir->next->content, redir->content_size);
-	do_redir(&info, redir->content_size);
-}
-
-void	apply_redir(t_list *lst)
-{
-	if (lst)
-		get_redir(lst);
+	while (redir)
+	{
+		ft_bzero(&info, sizeof(struct s_redir));
+		get_info(&info, redir->content, redir->next->content,
+				redir->content_size);
+		do_redir(&info, redir->content_size);
+		ft_lstadd(fd_lst, ft_lstnew(NULL, (size_t)info.fd_src));
+		redir = redir->next->next;
+	}
 }

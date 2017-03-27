@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/26 17:55:07 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/27 16:46:18 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,35 +50,10 @@ int		main(int argc, char **argv, char **environ)
 	t_ast	*tree;
 	t_sh	sh;
 
-	char	*cmd1[] = {"/bin/cat", NULL};
-	char	*cmd2[] = {"/bin/ls", NULL};
-	int		pdes[2];
-
-	pid_t	child;
-	pid_t	gchild;
-	if (!(child = fork()))
-	{
-		pipe(pdes);
-		if (!(gchild = fork()))
-		{
-			close(pdes[0]);
-			dup2(pdes[1], STDOUT_FILENO);
-			/* cat command gets executed here */
-			execvp(cmd1[0], cmd1);
-		}
-		else if (gchild)
-		{
-			close(pdes[1]);
-			dup2(pdes[0], STDIN_FILENO);
-			/* ls command gets executed here */
-			execvp(cmd2[0], cmd2);
-		}
-	}
-	waitpid(child, NULL, WNOHANG);
-	exit(0);
 	(void)argc;
 	(void)argv;
 	feed_sh(&sh, environ);
+	sh.is_tty = isatty(STDIN_FILENO) ? 1 : 0;
 	while (42)
 	{
 		tree = NULL;
@@ -96,21 +71,5 @@ int		main(int argc, char **argv, char **environ)
 		execute(tree, &sh);
 		astdel(&tree);
 	}
-	return (sh.status > 0 ? sh.status + 128 : 0);
-	/* display_tree(tree); */
-}
-
-void	display_tree(t_ast *tree)
-{
-	if (!tree)
-		return ;
-	if (tree->type == ARG_NODE)
-		ft_putlst(tree->redir);
-	else
-	{
-		ft_putnbr(tree->type);
-		ft_putchar('\n');
-	}
-	display_tree(tree->left);
-	display_tree(tree->right);
+	return (sh.status);
 }

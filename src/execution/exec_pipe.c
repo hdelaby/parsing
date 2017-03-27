@@ -6,46 +6,55 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:03:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/26 17:49:38 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/27 12:02:42 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "signal_handling.h"
 
-int		ret_val;
+static int	ret_value;
+
+/*
+** Main function behind pipe handling. Just need to be normed now.
+** http://stackoverflow.com/questions/43030966/pipe-chaining-in-my-own-shell-implementation
+*/
 
 void	exec_pipe(t_ast *tree, t_sh *sh)
 {
 	int		pdes[2];
-	pid_t	child;
+	pid_t	child_right;
+	pid_t	child_left;
 
 	pipe(pdes);
-	child = fork();
-	if (child == -1)
+	if ((child_left = fork()) == -1)
 		return ;
-	else if (child == 0)
+	else if (child_left == 0)
 	{
 		close(pdes[READ_END]);
 		dup2(pdes[WRITE_END], STDOUT_FILENO);
-		execute_cmd(tree->left, sh);
-		exit(0);
+		exit(execute_cmd(tree->left, sh));
 	}
-	else
+	if ((child_right = fork()) == -1)
+		return ;
+	else if (child_right == 0)
 	{
 		close(pdes[WRITE_END]);
 		dup2(pdes[READ_END], STDIN_FILENO);
 		if (tree->right->type == PIPE_NODE)
 			exec_pipe(tree->right, sh);
 		else
-			ret_val = execute_cmd(tree->right, sh);
-		exit(0);
+		{
+			ret_value = execute_cmd(tree->right, sh);
+			exit(ret_value);
+		}
 	}
+	close(pdes[WRITE_END]);
+	close(pdes[READ_END]);
+	wait(NULL);
+	wait(NULL);
+	exit(ret_value);
 }
-
-/*
-** SAVE STDIN OUT ERR AND PUT THEM BACK AFTERWARDS
-*/
 
 void	pipe_node(t_ast *tree, t_sh *sh)
 {
@@ -54,14 +63,20 @@ void	pipe_node(t_ast *tree, t_sh *sh)
 
 	if (!tree)
 		return ;
+	if (tree->type != PIPE_NODE)
+	{
+		sh->status = execute_cmd(tree, sh);
+		return ;
+	}
 	child = fork();
 	if (child == -1)
 		return ;
 	else if (child == 0)
-		tree->type == PIPE_NODE ? exec_pipe(tree, sh) : execute_cmd(tree, sh);
+		exec_pipe(tree, sh);
 	else
 	{
-		waitpid(child, &status, WNOHANG);
-		sh->status = tree->type == PIPE_NODE ? ret_val : get_status(status);
+		wait(&status);
+		sh->status = get_status(status);
+		ft_putnbr(sh->status);
 	}
 }

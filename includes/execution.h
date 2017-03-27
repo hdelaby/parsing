@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 10:49:47 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/24 17:29:26 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/27 14:52:51 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,17 @@ struct			s_redir
 	char	*word;
 };
 
-typedef struct	s_backup
-{
-	int		stdin_cpy;
-	int		stdout_cpy;
-	int		stderr_cpy;
-	int		fds[50];
-}				t_backup;
-
 /*
 ** exec_redir.c
 */
 
-void	get_redir(t_list *redir);
+void	exec_redir(t_list *lst, t_list **lst_fd);
 
 /*
 ** exec_cmd.c
 */
 
 int		execute_cmd(t_ast *tree, t_sh *sh);
-int		execute_cmd_bis(t_ast *tree, t_sh *sh);
 
 int		get_status(int status);
 
@@ -71,7 +62,6 @@ int		get_status(int status);
 */
 
 void	execute(t_ast *tree, t_sh *sh);
-void	apply_redir(t_list *lst);
 
 /*
 ** exec_pipe.c

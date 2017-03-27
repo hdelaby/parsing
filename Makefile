@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/26 13:19:42 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/27 14:52:18 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_NAME = handlers_operands.c\
 		   exec_pipe.c\
 		   exec_redir.c\
 		   exec_cmd.c\
+		   restore_fd.c\
 		   get_key.c\
 		   ft_getwinsz.c\
 		   tc_putc.c\
