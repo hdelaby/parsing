@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 10:59:56 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 11:36:14 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,12 @@ int		execute_cmd(t_ast *tree, t_sh *sh)
 	save_std_fd(std_fd);
 	exec_redir(tree->redir, &lst_fd);
 	if ((status = execute_builtin(tree, sh)) != -2)
+	{
+		if (restore_std_fd(std_fd))
+			exit(1);
+		ft_lstdel(&lst_fd, &close_fds);
 		return (status);
+	}
 	if ((child = fork()) == -1)
 		return (EXIT_FAILURE);
 	else if (child == 0)

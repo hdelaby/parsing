@@ -1,15 +1,19 @@
 TO DO:
 	-> Signal handling (ignore most signals...)
 	-> Check that " ' and | are over in the lexer
-	-> [OK] Redirections and reset FD
+	-> Add security in line_edition for different term types!!
 	-> CTRL-L fix
-	-> Bug when KEY_UP on empty history
+	-> Add builtin env
+
+DONE:	
+	-> [OK] Redirections and reset FD
+	-> [OK] Bug when KEY_UP on empty history
 	-> [OK] Separate behaviour of tty and not tty
 	-> [OK] Include environment
 	-> [OK] Include builtin
 	-> [OK] Modify history to work without file
 		BUG> [OK] If I modify a history entry, the unfinished cmd is saved !
-		EASY> Clean history.c
+		EASY> [OK] Clean history.c
 	-> [OK] Collect info on execution (exit code...)
 
 BONUS:

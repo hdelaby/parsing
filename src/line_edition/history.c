@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 15:12:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 13:59:49 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 11:17:59 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	feed_line(t_line *line, char *entry)
 
 void		new_hist_entry(t_line *line, t_dlist **hist)
 {
-	if (line->hist && !line->hist_depth)
+	if (!line->hist || (line->hist && !line->hist_depth))
 		return ;
 	line->hist_depth--;
 	*hist = (*hist)->prev;
@@ -46,7 +46,7 @@ void		old_hist_entry(t_line *line, t_dlist **hist)
 {
 	t_dlist *new_node;
 
-	if (line->hist && line->hist_depth == line->hist_size)
+	if (!line->hist || (line->hist && line->hist_depth == line->hist_size))
 		return ;
 	if (!line->hist_depth)
 	{
@@ -59,42 +59,4 @@ void		old_hist_entry(t_line *line, t_dlist **hist)
 	line->hist_depth++;
 	feed_line(line, (*hist)->content);
 	ft_putstr_fd(line->cmd, 0);
-}
-
-void		append_history(char *entry)
-{
-	int		fd;
-
-	if (!(*entry))
-		return ;
-	fd = open(HISTORY_PATH, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	if (fd == -1)
-	{
-		ft_putendl_fd("Could not open history", 2);
-		return ;
-	}
-	ft_putendl_fd(entry, fd);
-	close(fd);
-}
-
-t_dlist		*retrieve_history(void)
-{
-	int		fd;
-	t_dlist	*hist;
-	char	*line;
-	size_t	len;
-
-	hist = NULL;
-	fd = open(HISTORY_PATH, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	while (get_next_line(fd, &line))
-	{
-		len = ft_strlen(line);
-		if (len < MAX_CMD_LEN)
-			ft_dlstadd(&hist, ft_dlstnew(line, len + 1));
-		free(line);
-	}
-	close(fd);
-	return (hist);
 }
