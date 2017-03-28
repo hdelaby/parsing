@@ -6,7 +6,7 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/27 14:52:18 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/28 17:10:44 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ VPATH = .: src/line_edition src/parsing src/lexing src/execution src/builtin \
 SRC_NAME = handlers_operands.c\
 		   handlers_other.c\
 		   lexer.c\
+		   lexing_tools.c\
 		   parser.c\
 		   manip_env.c\
 		   grammar_elem.c\

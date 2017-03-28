@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 09:24:31 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 09:16:15 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 16:24:04 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	final_token(t_token *tok, t_list **lst)
 
 static void	match_table(char c, t_token *tok, t_list **tokens_lst)
 {
-	int							i;
-	static struct s_parsingtab	ptab[8] = {
+	int				i;
+	static t_lextab	ptab[8] = {
 		{' ', &handle_space},
 		{'\'', &handle_quote},
 		{'\"', &handle_dquote},
@@ -64,7 +64,7 @@ static void	match_table(char c, t_token *tok, t_list **tokens_lst)
 	handle_other(tok, tokens_lst, c);
 }
 
-t_list		*lex_cmd(char *cmd)
+t_list		*lex_cmd(char *cmd, t_sh *sh)
 {
 	t_token	tok;
 	t_list	*lst;
@@ -72,6 +72,7 @@ t_list		*lex_cmd(char *cmd)
 	lst = NULL;
 	ft_bzero(&tok, sizeof(tok));
 	tok.cmd = cmd;
+	tok.hist = &(sh->hist);
 	while (*tok.cmd)
 		match_table(*tok.cmd++, &tok, &lst);
 	end_token(&tok, &lst);
