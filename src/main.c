@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/27 16:46:18 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 09:29:49 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_input(t_sh *sh)
 			return (str);
 		return (NULL);
 	}
-	ft_putstr_fd("21sh &> ", 0);
+	ft_putstr_fd("21sh &> ", 2);
 	str = line_editing(&sh->hist);
 	sh->hist = ft_dlstgethead(sh->hist);
 	ft_dlstadd(&sh->hist, ft_dlstnew(str, ft_strlen(str) + 1));
@@ -53,7 +53,6 @@ int		main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	feed_sh(&sh, environ);
-	sh.is_tty = isatty(STDIN_FILENO) ? 1 : 0;
 	while (42)
 	{
 		tree = NULL;

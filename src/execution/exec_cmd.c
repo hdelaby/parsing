@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/27 17:01:55 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 10:59:56 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ int		execute_builtin(t_ast *tree, t_sh *sh)
 
 int		save_std_fd(int std_fd[3]);
 int		restore_std_fd(int std_fd[3]);
-int		close_fds(t_list *lst_fd);
-
-#include "ft_printf.h"
+void	close_fds(void *content, size_t content_size);
 
 int		execute_cmd(t_ast *tree, t_sh *sh)
 {
@@ -86,9 +84,8 @@ int		execute_cmd(t_ast *tree, t_sh *sh)
 	lst_fd = NULL;
 	ft_bzero(std_fd, 3 * sizeof(int));
 	status = 0;
-	/* save_std_fd(std_fd); */
-	/* ft_printf("%d %d %d\n", std_fd[0], std_fd[1], std_fd[2]); */
-	/* exec_redir(tree->redir, &lst_fd); */
+	save_std_fd(std_fd);
+	exec_redir(tree->redir, &lst_fd);
 	if ((status = execute_builtin(tree, sh)) != -2)
 		return (status);
 	if ((child = fork()) == -1)
@@ -96,7 +93,8 @@ int		execute_cmd(t_ast *tree, t_sh *sh)
 	else if (child == 0)
 		my_execve(tree, sh);
 	wait(&status);
-	/* if (restore_std_fd(std_fd) || close_fds(lst_fd)) */
-	/* 	exit(1); */
+	if (restore_std_fd(std_fd))
+		exit(1);
+	ft_lstdel(&lst_fd, &close_fds);
 	return (get_status(status));
 }

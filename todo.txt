@@ -1,7 +1,7 @@
 TO DO:
 	-> Signal handling (ignore most signals...)
 	-> Check that " ' and | are over in the lexer
-	-> Redirections and reset FD
+	-> [OK] Redirections and reset FD
 	-> CTRL-L fix
 	-> Bug when KEY_UP on empty history
 	-> [OK] Separate behaviour of tty and not tty

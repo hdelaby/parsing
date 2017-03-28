@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:29:51 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/27 16:45:14 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 10:15:50 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 #include "libft.h"
 #include <fcntl.h>
 
-int		close_fds(t_list *lst_fd)
+void	close_fds(void *content, size_t content_size)
 {
-	t_list	*tmp;
-
-	tmp = NULL;
-	while (lst_fd)
-	{
-		if (close((int)lst_fd->content))
-			return (EXIT_FAILURE);
-		tmp = lst_fd;
-		lst_fd = lst_fd->next;
-		free(tmp);
-	}
-	return (EXIT_SUCCESS);
+	(void)content;
+	close((int)content_size);
 }
 
 int		save_std_fd(int std_fd[3])
@@ -35,8 +25,6 @@ int		save_std_fd(int std_fd[3])
 	if (((std_fd[0] = dup(STDIN_FILENO)) == -1)
 			|| ((std_fd[1] = dup(STDOUT_FILENO)) == -1)
 			|| ((std_fd[2] = dup(STDERR_FILENO)) == -1))
-		return (EXIT_FAILURE);
-	if (close(STDIN_FILENO) || close(STDOUT_FILENO) || close(STDERR_FILENO))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

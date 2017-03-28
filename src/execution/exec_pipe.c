@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:03:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/27 12:02:42 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/28 10:09:49 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ void	pipe_node(t_ast *tree, t_sh *sh)
 	{
 		wait(&status);
 		sh->status = get_status(status);
-		ft_putnbr(sh->status);
 	}
 }
