@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:25:10 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 17:07:02 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 11:50:05 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_token
 {
 	char	str[MAX_TOKEN_LEN];
 	char	*cmd;
+	char	*ptr_for_free;
 	int		index;
 	int		type;
 	t_dlist	**hist;
@@ -69,5 +70,6 @@ void	handle_other(t_token *tok, t_list **tokens_lst, char key);
 */
 
 int		is_line_empty(char *str);
+int		complete_cmd(t_token *tok, char *prompt, int eol);
 
 #endif

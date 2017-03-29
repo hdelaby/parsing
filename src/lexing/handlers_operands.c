@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 11:13:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 17:10:17 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 11:53:00 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,14 @@ void	handle_iredir(t_token *tok, t_list **lst)
 	end_token(tok, lst);
 }
 
+#include "line_edition.h"
+
 void	handle_pipe(t_token *tok, t_list **lst)
 {
-		end_token(tok, lst);
-		tok->str[tok->index++] = '|';
-		tok->type = PIPE;
-		end_token(tok, lst);
-		if (is_line_empty(tok->cmd))
-		{
-			ft_putendl("FAIL");
-			exit(1);
-		}
+	end_token(tok, lst);
+	tok->str[tok->index++] = '|';
+	tok->type = PIPE;
+	end_token(tok, lst);
+	if (is_line_empty(tok->cmd))
+		complete_cmd(tok, "pipe> ", 0);
 }

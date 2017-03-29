@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 09:24:31 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 16:24:04 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 10:35:18 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_list		*lex_cmd(char *cmd, t_sh *sh)
 	lst = NULL;
 	ft_bzero(&tok, sizeof(tok));
 	tok.cmd = cmd;
+	tok.ptr_for_free = cmd;
 	tok.hist = &(sh->hist);
 	while (*tok.cmd)
 		match_table(*tok.cmd++, &tok, &lst);

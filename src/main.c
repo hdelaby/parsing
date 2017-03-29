@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 16:21:55 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 11:35:26 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int		main(int argc, char **argv, char **environ)
 			tree = parser(lst);
 			ft_lstdel(&lst, &ft_lstdelstr);
 		}
-		free(cmd);
 		if (!tree)
 			return (1);
 		execute(tree, &sh);
