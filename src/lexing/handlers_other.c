@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:32:05 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 13:09:02 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 13:23:08 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@ void	handle_quote(t_token *tok, t_list **lst)
 {
 	(void)lst;
 	tok->type = WORD;
-	while (*tok->cmd != '\'')
-		tok->str[tok->index++] = *tok->cmd++;
+	while (42)
+	{
+		if (*tok->cmd == '\'')
+			break;
+		if (*tok->cmd)
+			tok->str[tok->index++] = *tok->cmd++;
+		else
+			complete_cmd(tok, "quote> ", 1);
+	}
 	tok->cmd++;
 }
 
@@ -41,7 +48,14 @@ void	handle_dquote(t_token *tok, t_list **lst)
 {
 	(void)lst;
 	tok->type = WORD;
-	while (*tok->cmd && *tok->cmd != '\"')
-		tok->str[tok->index++] = *tok->cmd++;
+	while (42)
+	{
+		if (*tok->cmd == '\"')
+			break;
+		if (*tok->cmd)
+			tok->str[tok->index++] = *tok->cmd++;
+		else
+			complete_cmd(tok, "dquote> ", 1);
+	}
 	tok->cmd++;
 }

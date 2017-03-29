@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 09:52:20 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/21 13:58:22 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 17:18:44 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int				ft_getwinsz(t_winsz *winsz);
 
 void			delete_char(t_line *line, int key);
 void			insert_char(t_line *line, int key);
+void			print_line(char *line);
 
 /*
 ** tc_putc.c

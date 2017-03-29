@@ -6,11 +6,12 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 11:13:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/29 11:53:00 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 12:23:19 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "line_edition.h"
 
 /*
 ** ACCEPTED SYNTAX
@@ -71,8 +72,6 @@ void	handle_iredir(t_token *tok, t_list **lst)
 		tok->str[tok->index++] = *tok->cmd++;
 	end_token(tok, lst);
 }
-
-#include "line_edition.h"
 
 void	handle_pipe(t_token *tok, t_list **lst)
 {

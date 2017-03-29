@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 15:12:46 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 11:17:59 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 17:18:58 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		new_hist_entry(t_line *line, t_dlist **hist)
 	line->hist_depth--;
 	*hist = (*hist)->prev;
 	feed_line(line, (*hist)->content);
-	ft_putstr_fd(line->cmd, 0);
+	print_line(line->cmd);
 	if (!line->hist_depth)
 		ft_dlstremovenode(hist);
 }
@@ -58,5 +58,5 @@ void		old_hist_entry(t_line *line, t_dlist **hist)
 	*hist = (*hist)->next;
 	line->hist_depth++;
 	feed_line(line, (*hist)->content);
-	ft_putstr_fd(line->cmd, 0);
+	print_line(line->cmd);
 }

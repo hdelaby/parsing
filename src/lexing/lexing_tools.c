@@ -6,12 +6,40 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 16:55:27 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/29 12:05:54 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 16:11:29 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "line_edition.h"
+
+/* char	*replace_backslash(char *str) */
+/* { */
+/* 	char	*tmp; */
+/* 	char	*ret; */
+/* 	int		count; */
+/* 	int		i; */
+
+/* 	tmp = str; */
+/* 	ret = str; */
+/* 	count = 0; */
+/* 	i = 0; */
+/* 	while (*ret) */
+/* 		if (*(ret++) == '\n') */
+/* 			count++; */
+/* 	tmp = str; */
+/* 	if (!(ret = (char *)malloc(sizeof(char) * ft_strlen(str) + count + 1))) */
+/* 		return (NULL); */
+/* 	while (*tmp) */
+/* 	{ */
+/* 		if (*tmp == '\n') */
+/* 			ret[i++] = '\\'; */
+/* 		ret[i++] = *(tmp++); */
+/* 	} */
+/* 	ret[i++] = '\0'; */
+/* 	free(str); */
+/* 	return (ret); */
+/* } */
 
 int		complete_cmd(t_token *tok, char *prompt, int eol)
 {
@@ -20,16 +48,13 @@ int		complete_cmd(t_token *tok, char *prompt, int eol)
 
 	len = ft_strlen(tok->ptr_for_free);
 	ft_putstr_fd(prompt, 2);
-	if (eol)
-	{
-		if (!(input = ft_strjoin(tok->ptr_for_free, "\n")))
-			return (EXIT_FAILURE);
-		free(tok->ptr_for_free);
-		tok->ptr_for_free = input;
-	}
-	if (!(input = line_editing(tok->hist)))
+	if (!(input = ft_strjoin(tok->ptr_for_free, eol ? "\n" : " ")))
 		return (EXIT_FAILURE);
-	tok->cmd = ft_strjoin(tok->ptr_for_free, input);
+	free(tok->ptr_for_free);
+	tok->ptr_for_free = input;
+	if (!(input = line_editing(tok->hist))
+			|| !(tok->cmd = ft_strjoin(tok->ptr_for_free, input)))
+		return (EXIT_FAILURE);
 	free(tok->ptr_for_free);
 	tok->ptr_for_free = tok->cmd;
 	tok->cmd += len;

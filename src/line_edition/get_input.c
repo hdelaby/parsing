@@ -6,12 +6,24 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 10:19:38 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/27 17:10:56 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/29 17:19:24 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edition.h"
 #include "term_config.h"
+
+void	print_line(char *line)
+{
+	while (*line)
+	{
+		if (*line == '\n')
+			ft_putchar_fd(' ', 0);
+		else
+			ft_putchar_fd(*line, 0);
+		line++;
+	}
+}
 
 void	insert_char(t_line *line, int key)
 {
@@ -40,6 +52,6 @@ void	delete_char(t_line *line, int key)
 			MAX_CMD_LEN - line->cursor - 1);
 	line->length--;
 	tputs(tgetstr("cd", NULL), 0, &tc_putc);
-	ft_putstr_fd(line->cmd + line->cursor, 0);
+	print_line(line->cmd + line->cursor);
 	set_curpos(line);
 }
