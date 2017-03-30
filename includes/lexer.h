@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:25:10 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/30 12:13:26 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 16:11:36 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	handle_other(t_token *tok, t_list **tokens_lst, char key);
 */
 
 int		is_line_empty(char *str);
-int		complete_cmd(t_token *tok, char *prompt, int eol);
+int		complete_cmd(t_token *tok, char *prompt);
 
 #endif

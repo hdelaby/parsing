@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 10:14:24 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/20 11:46:12 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 15:21:48 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		check_stdout(char *path_to_input, char *expected_output)
 	in_fd = dup(STDOUT_FILENO);
 	dup2(pfd[1], STDOUT_FILENO);
 	ft_bzero(str, 1000);
-	ft_strcpy(str, "../parsing < ");
+	ft_strcpy(str, "../21sh < ");
 	ft_strcat(str, path_to_input);
 	system(str);
 	ret = read(pfd[0], &str, 1000);

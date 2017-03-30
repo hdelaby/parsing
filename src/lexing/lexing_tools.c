@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 16:55:27 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/29 16:11:29 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 16:10:56 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,20 @@
 /* 	return (ret); */
 /* } */
 
-int		complete_cmd(t_token *tok, char *prompt, int eol)
+int		complete_cmd(t_token *tok, char *prompt)
 {
 	size_t	len;
 	char	*input;
 
 	len = ft_strlen(tok->ptr_for_free);
 	ft_putstr_fd(prompt, 2);
-	if (!(input = ft_strjoin(tok->ptr_for_free, eol ? "\n" : " ")))
+	if (!(input = ft_strjoin(tok->ptr_for_free, "\n")))
 		return (EXIT_FAILURE);
 	free(tok->ptr_for_free);
 	tok->ptr_for_free = input;
 	if (!(input = line_editing(tok->hist))
-			|| !(tok->cmd = ft_strjoin(tok->ptr_for_free, input)))
+			|| !(tok->cmd = ft_strfreejoin(tok->ptr_for_free, input)))
 		return (EXIT_FAILURE);
-	free(tok->ptr_for_free);
 	tok->ptr_for_free = tok->cmd;
 	tok->cmd += len;
 	*(tok->hist) = ft_dlstgethead(*(tok->hist));

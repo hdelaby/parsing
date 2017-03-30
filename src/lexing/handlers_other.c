@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:32:05 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/29 13:23:08 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 16:11:22 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_quote(t_token *tok, t_list **lst)
 		if (*tok->cmd)
 			tok->str[tok->index++] = *tok->cmd++;
 		else
-			complete_cmd(tok, "quote> ", 1);
+			complete_cmd(tok, "quote> ");
 	}
 	tok->cmd++;
 }
@@ -55,7 +55,7 @@ void	handle_dquote(t_token *tok, t_list **lst)
 		if (*tok->cmd)
 			tok->str[tok->index++] = *tok->cmd++;
 		else
-			complete_cmd(tok, "dquote> ", 1);
+			complete_cmd(tok, "dquote> ");
 	}
 	tok->cmd++;
 }

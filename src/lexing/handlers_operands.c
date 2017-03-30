@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 11:13:11 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/30 11:57:58 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 16:09:58 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,4 @@ void	handle_pipe(t_token *tok, t_list **lst)
 	tok->str[tok->index++] = '|';
 	tok->type = PIPE;
 	end_token(tok, lst);
-	if (is_line_empty(tok->cmd))
-		complete_cmd(tok, "pipe> ", 0);
 }
