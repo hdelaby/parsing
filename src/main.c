@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/29 11:35:26 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 09:32:07 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_input(t_sh *sh)
 			return (str);
 		return (NULL);
 	}
-	ft_putstr_fd("21sh &> ", 2);
+	ft_putstr_fd("hdelaby &> ", 2);
 	str = line_editing(&sh->hist);
 	sh->hist = ft_dlstgethead(sh->hist);
 	ft_dlstadd(&sh->hist, ft_dlstnew(str, ft_strlen(str) + 1));

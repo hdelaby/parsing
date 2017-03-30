@@ -6,11 +6,11 @@
 #    By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/05 13:43:29 by hdelaby           #+#    #+#              #
-#    Updated: 2017/03/28 17:10:44 by hdelaby          ###   ########.fr        #
+#    Updated: 2017/03/30 09:31:42 by hdelaby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = parsing
+NAME = 21sh
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 

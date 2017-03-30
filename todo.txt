@@ -1,11 +1,12 @@
 TO DO:
 	-> Signal handling (ignore most signals...)
-	-> Check that " ' and | are over in the lexer
 	-> Add security in line_edition for different term types!!
 	-> CTRL-L fix
 	-> Add builtin env
+	-> [BUG] SEGV when only "> lol"
 
 DONE:	
+	-> [OK] Check that " ' and | are over in the lexer
 	-> [OK] Redirections and reset FD
 	-> [OK] Bug when KEY_UP on empty history
 	-> [OK] Separate behaviour of tty and not tty
