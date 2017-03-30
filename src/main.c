@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 08:56:41 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/30 09:32:07 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 10:46:33 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		main(int argc, char **argv, char **environ)
 			ft_lstdel(&lst, &ft_lstdelstr);
 		}
 		if (!tree)
-			return (1);
+			continue ;
 		execute(tree, &sh);
 		astdel(&tree);
 	}

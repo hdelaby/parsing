@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 09:51:49 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 11:36:14 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 10:58:33 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		execute_builtin(t_ast *tree, t_sh *sh)
 		{"unsetenv", &bi_unsetenv},
 		{"cd", &bi_cd},
 		{"echo", &bi_echo},
-		{"exit", &bi_exit}
+		{"exit", &bi_exit},
 	};
 
 	i = 0;

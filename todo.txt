@@ -2,8 +2,9 @@ TO DO:
 	-> Signal handling (ignore most signals...)
 	-> Add security in line_edition for different term types!!
 	-> CTRL-L fix
-	-> Add builtin env
+	-> Add builtin env [Adapt execution for that]
 	-> [BUG] SEGV when only "> lol"
+	-> [LEAKS] empty commands
 
 DONE:	
 	-> [OK] Check that " ' and | are over in the lexer

@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 11:28:34 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/28 11:07:55 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 11:15:01 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct	s_sh
 {
 	int		status;
 	t_dlist	*hist;
+	t_list	*heredoc;
 	char	**env;
 }				t_sh;
 

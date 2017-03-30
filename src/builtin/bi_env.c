@@ -6,11 +6,20 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 15:27:03 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/01/26 16:09:58 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 10:58:45 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtin.h"
+#include "environ.h"
+
+static int	env_exec(char **args, char **env)
+{
+	pid_t	child;
+	int		status;
+
+	if ((status = execute_buitin
+}
 
 static void	env_ill_opt(char c)
 {
@@ -47,17 +56,17 @@ static int	env_opt(char **args, int *i, int ret)
 	return (ret);
 }
 
-int			bi_env(char **args, t_list **env)
+int			bi_env(char **args, char ***env)
 {
 	int		i;
 	int		has_opt;
-	t_list	*new_env;
+	char	**new_env;
 	char	*tmp;
 
 	i = 1;
 	if ((has_opt = env_opt(args, &i, 0)) == -1)
 		return (1);
-	new_env = has_opt ? NULL : ft_lstcpy(*env);
+	new_env = has_opt ? NULL : ft_tabcpy(*env);
 	while (args[i] && (tmp = ft_strchr(args[i], '=')))
 	{
 		*tmp = '\0';
@@ -67,9 +76,9 @@ int			bi_env(char **args, t_list **env)
 	}
 	has_opt = 0;
 	if (args[i])
-		has_opt = apply_bin(args[i], args + i, &new_env);
+		has_opt = execute_cmd(args[i], args + i, &new_env);
 	else
-		ft_putlst(new_env);
-	ft_lstdel(&new_env, &ft_lstdelstr);
+		ft_puttab(new_env);
+	ft_tabdel(new_env);
 	return (has_opt);
 }

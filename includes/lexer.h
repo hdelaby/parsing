@@ -6,7 +6,7 @@
 /*   By: hdelaby <hdelaby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:25:10 by hdelaby           #+#    #+#             */
-/*   Updated: 2017/03/29 11:50:05 by hdelaby          ###   ########.fr       */
+/*   Updated: 2017/03/30 12:13:26 by hdelaby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # define PIPE	3
 # define OREDIR	4
 # define IREDIR	5
-# define SEMICO	6
-# define EOL	7
-# define END	8
+# define HDOC	6
+# define SEMICO	7
+# define EOL	8
+# define END	9
 
 typedef struct	s_token
 {
@@ -35,6 +36,7 @@ typedef struct	s_token
 	int		index;
 	int		type;
 	t_dlist	**hist;
+	t_list	**heredoc;
 }				t_token;
 
 typedef struct	s_lextab
@@ -47,7 +49,7 @@ typedef struct	s_lextab
 ** lexer.c
 */
 
-void	end_token(t_token *tok, t_list **lst);
+int		end_token(t_token *tok, t_list **lst);
 t_list	*lex_cmd(char *cmd, t_sh *sh);
 
 /*
